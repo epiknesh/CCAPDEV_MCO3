@@ -903,7 +903,7 @@ function displayReservations(reservationList) {
 
 async function fillReservationList() {
     try {
-        const response = await fetch('http://localhost:3000/reservationList');
+        const response = await fetch('https://ccapdevmco3.adaptable.app/reservationList');
         const data = await response.json();
         console.log(data); // Check if data is fetched correctly
         return data;
@@ -1162,7 +1162,7 @@ function confirmReservation(labSeats, reservationList) {
         anonymous: isAnonymous ? 'yes' : 'no',
     };
 
-    fetch(`http://localhost:3000/make-reservation`, {
+    fetch(`https://ccapdevmco3.adaptable.app/make-reservation`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
