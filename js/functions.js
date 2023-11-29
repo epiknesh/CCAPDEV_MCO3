@@ -40,7 +40,7 @@ function viewProfile() {
 }
 
 function logout() {
-    window.location.href = "Index.html";
+    window.location.href = "index.html";
 }
 
 function studentView() {
