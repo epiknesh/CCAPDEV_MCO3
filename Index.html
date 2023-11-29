@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" href="images/dlsu-logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Modern+Clarity&display=swap">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #000;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            background-image: url('images/goks-img.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .header {
+            background-color: #242424;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header img {
+            width: 200px;
+            margin-left: 20px;
+            height: auto;
+        }
+
+        .button-header-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 40px;
+            gap: 30px;
+        }
+
+        .button-header {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .button-header:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .about-us-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            margin-top: -139px;
+        }
+
+        .button-body-container {
+            display: flex;
+            flex-direction: row;
+            align-items: left;
+            margin-left: 140px;
+            margin-top: 40px;
+            gap: 30px;
+        }
+
+        .button-body {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .button-body:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        .reservation-text {
+            text-align: left;
+            margin-left: 140px;
+            margin-top: -150px;
+            color: #fff;
+            font-size: 30px;
+        }
+
+        .reservation-text h2 {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .reservation-text p {
+            margin: 5px 0;
+        }
+
+        .sub-text {
+            text-align: left;
+            margin-top: 25px;
+            color: #fff;
+            font-size: 16px;
+            max-width: 50%;
+            word-wrap: break-word;
+            margin-left: 140px;
+        }
+
+        .border {
+            border-bottom: 3px solid #016836; /* Change the width of the line */
+            padding-bottom: 7px;
+            width: 50%;
+            margin-left: 140px;
+            margin-top: 20px;
+        }
+
+        .sub-text p {
+            margin: 5px 0;
+            font-weight: normal;
+            font-style: italic;
+            font-family: 'Modern Clarity', sans-serif;
+        }
+
+        .about-us-button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .about-us-button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        #about-us {
+            padding: 50px;
+            background-color: #f9f9f9;
+            margin-top: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-us-content {
+    max-width: 500px;
+    text-align: justify;
+    margin-left: 100px;
+    position: relative;
+}
+
+.about-us-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: -270px;
+    margin-bottom: 70px;
+}
+
+.about-us-images img {
+    max-width: 150px; /* Adjust the maximum width as needed */
+    height: auto;
+    /* object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff; */
+}
+        .about-us-content h2 {
+            color: #016836;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .about-us-content p {
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-family: 'Modern Clarity', sans-serif;
+        }
+
+        /* ... (rest of your existing styles) ... */
+
+        /* Media Query for Larger Screens */
+        @media screen and (min-width: 992px) {
+            .header img {
+                width: 350px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+        }
+    </style>
+    <script src="js/functions.js"></script>
+</head>
+<body>
+
+    <div class="header">
+        <img src="images/home-logo.png" alt="Home Logo">
+        <div class="button-header-container">
+            <a class="button-header" href="javascript:void(0)" onclick="quickLoginStudent()">Quick Student Navigation</a>
+            <a class="button-header" href="javascript:void(0)" onclick="quickLoginLabTech()">Quick Lab Tech Navigation</a>
+            <a class="button-header" href="javascript:void(0)" onclick="redirectToLoginPage()">Login</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="reservation-text">
+            <h2>Ayaw mo umupo sa harap?</h2>
+            <p>Pa-reserve ka na!</p>
+        </div>
+
+        <div class="sub-text">
+            <p>Archers Reservation Hub is a Laboratory Seats Reservation platform for the Gokongwei College of Engineering Building. </p>
+        </div>
+
+        <div class="border"></div>
+
+        <div class="button-body-container">
+            <a class="button-body" href="javascript:void(0)" onclick="redirectToRegisterPage()">Register</a>
+            <a class="button-body" href="javascript:void(re0)" onclick="redirectToGuestHomePage()">Sign in as Guest</a>
+            <a class="about-us-button" href="#about-us">About Us</a>
+        </div>
+    </div>
+
+    <div class="about-us-container">
+        <section id="about-us">
+            <div class="about-us-content">
+                <h2>About Us</h2>
+                <p>Welcome to our laboratory seat reservation platform! We're committed to streamlining seat reservations for the Gokongwei College of Engineering Building. Our system ensures a convenient and organized approach, enhancing efficiency in laboratory usage for students and staff.</p>
+                <p>We prioritize ease of access, functionality, and a user-friendly experience to improve your reservation process.</p>
+            </div>
+
+            <div class="about-us-images">
+                <img src="images/dei1.jpg" alt="Dei">
+                <img src="images/sean1.jpg" alt="Sean">
+                <img src="images/norms1.jpg" alt="Norms">
+                <img src="images/yuan1.jpg" alt="Yuan">
+            </div>
+
+            <!-- <div class="about-us-images">
+                <img src="images/dei.png" alt="Dei">
+                <img src="images/sean.png" alt="Sean">
+                <img src="images/norms.png" alt="Norms">
+                <img src="images/yuan.png" alt="Yuan">
+            </div> -->
+        </section>
+    </div>
+
+    <footer style="text-align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.5); color: #fff; font-size: 12px;">
+        &copy; 2016 All Rights Reserved. De La Salle University
+    </footer>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const aboutButton = document.querySelector('.about-us-button');
+
+    aboutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const aboutSection = document.getElementById('about-us');
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+function quickLoginStudent(){
+    localStorage.setItem('currentEmail', "sean_bartolome@dlsu.edu.ph");
+    localStorage.setItem('currentLogIn', "sean_bartolome@dlsu.edu.ph");
+    localStorage.setItem('currentType', "Student");
+    redirectToHomePage();
+}
+
+function quickLoginLabTech(){
+    localStorage.setItem('currentEmail', "labtech@dlsu.edu.ph");
+    localStorage.setItem('currentLogIn', "labtech@dlsu.edu.ph");
+    localStorage.setItem('currentType', "labTechnician");
+    redirectToHomePage();
+}
+</script>
+</html>

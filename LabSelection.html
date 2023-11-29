@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab Selection</title>
+<link rel="icon" href="images/dlsu-logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+<style>
+  .profile-image-container {
+            display: flex;
+            margin-right: 30px;
+            margin-left: 50px;
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-menu {
+            display: none;
+            position: absolute;
+            background-color: #a3a3a3;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            padding: 12px;
+            border-radius: 20px;
+            right: -5px;
+            top: 60px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-menu p {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container .profile-menu p:hover {
+            color: rgba(0, 148, 76, 0.7); /* Change text color on hover */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container:hover .profile-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(to bottom right, #dedede, #93b1a7); /* Adjust gradient from white (#fff) to gray (#a3a3a3) */
+            animation: fadeDown 0.5s ease; /* Animation */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Move menu upward initially */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Bring menu down to its original position */
+            }
+        }
+
+
+        .header {
+            background-color: #242424;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            width: 200px; /* Adjust the width as needed */
+            margin-left: 20px;
+            height: auto;
+        }
+
+        .header-button-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 40px;
+            gap: 30px;
+        }
+
+        .header-button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/hallway-1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif; 
+            color: black;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            min-height: 100vh;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .label {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+
+        /* Center the container div */
+        .container {
+          width: 40%;
+          margin: 0 auto;
+          position: relative;
+        }
+
+        /* Hide the images by default */
+        .mySlides {
+          display: none;
+          text-align: center;
+        }
+
+        .mySlides img {
+          width: 100%;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Add a pointer when hovering over the thumbnail images */
+        .cursor {
+            cursor: pointer;
+        }
+
+        /* Next & previous buttons */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 40%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Number text (1/3 etc) */
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 13px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            opacity: 1;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* Container for image text */
+        .caption-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .column {
+      flex: 0 0 calc(33.33% - 20px);
+      margin-bottom: 20px;
+    }
+
+    .demo {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+
+    .demo:hover {
+      transform: scale(1.05);
+    }
+
+    .active {
+      border: 2px solid #0f960f;
+    }
+
+    .centered-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(0, 0, 0, 0.7);
+      opacity: 0.7;
+      font-size: 36px; /* Adjust font size as needed */
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .img-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* pili tayo ano mas magada*/
+    .img-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    /* pili tayo ano mas magada
+    /* .img-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      color: rgba(0, 0, 0, 0.65);
+      font-size: 35px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: opacity 0.3s ease-in-out;
+    } */
+
+    .img-container:hover .img-overlay {
+      opacity: 1;
+    }
+
+
+        /* UPDATED CODE FOR MEDIA SCREENS */
+    @media screen and (min-width: 992px) {
+            .header img {
+                width: 350px;
+            }
+
+            .header {   
+                padding: 20px;
+            }
+        }
+
+</style>
+</head>
+<body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadUser(localStorage.getItem('currentEmail'));
+            loadCurrentAccount(localStorage.getItem('currentLogIn'))
+            setHREF();
+});
+    </script>
+  <div class="header">
+    <div class="header-logo">
+        <img src="images/home-logo.png" alt="Your Logo">
+    </div>
+    <div class="header-button-container">
+        <button class="header-button" onclick="redirectToHomePage()">Home</button>
+        <button class="header-button" onclick="redirectToReservationsPage()">Reservations</button>
+        <div class="profile-image-container">
+          <img class="profile-image" src="" alt="User Profile Image">
+                  <div class="profile-menu">
+                      <p onclick="viewProfile()">View User Profile</p>
+                      <p onclick="logout()">Logout</p>
+                  </div>
+      </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 20px; margin-bottom: 25px; font-size: 40px; font-weight: bold; color: #fff; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);">
+    <span style="background-image: linear-gradient(to right, #87ff5f, #d4ff71); 
+                 color: transparent;
+                 -webkit-background-clip: text;
+                 background-clip: text;
+                 display: inline-block;
+                 transition: transform 0.3s ease-in-out;">Laboratory Selection</span>
+</div>
+
+
+  <div class="container">
+    <a id = "labG301" href="Laboratory-Student.html" onclick="updateSelectedLab('G301')"> 
+      <div class="mySlides">
+        <div class="numbertext">1 / 3</div>
+        <img src="images/403.png" style="width:100%">
+      </div>
+    </a>
+    
+
+    <a id = "labG302" href="Laboratory-Student.html" onclick="updateSelectedLab('G302')"> 
+      <div class="mySlides">
+        <div class="numbertext">2 / 3</div>
+        <img src="images/404.png" style="width:100%">
+      </div>
+    </a>
+   
+
+    <a id = "labG303" href="Laboratory-Student.html" onclick="updateSelectedLab('G303')"> 
+      <div class="mySlides">
+        <div class="numbertext">3 / 3</div>
+        <img src="images/405v2.png" style="width:100%">
+      </div>
+    </a>
+
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <div class="caption-container" style="text-align: center; margin-top: 20px; margin-bottom: 25px;">
+      <p id="caption" style="font-size: 20px; font-weight: bold; color: #fff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);">
+      </p>
+    </div>
+    
+
+    <div class="row">
+      <div class="column">
+        <div class="img-container">
+          <img class="demo cursor" src="images/403.png" style="width:100%" onclick="currentSlide(1)" alt="G301">
+          <div class="img-overlay">G301</div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="img-container">
+          <img class="demo cursor" src="images/404.png" style="width:100%" onclick="currentSlide(2)" alt="G302">
+          <div class="img-overlay">G302</div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="img-container">
+          <img class="demo cursor" src="images/405v2.png" style="width:100%" onclick="currentSlide(3)" alt="G303">
+          <div class="img-overlay">G303</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      if (slideIndex == 3 && n == 1){
+        showSlides(slideIndex = 1);
+      } else if (slideIndex == 1 && n == -1){
+        showSlides(slideIndex = 3);
+      } else {
+      showSlides(slideIndex += n);
+      }
+      
+      
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("demo");
+      let captionText = document.getElementById("caption");
+      if (n > slides.length) {
+        slideIndex = 1
+      }
+      if (n < 1) {
+        slideIndex = slides.length
+      }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      captionText.innerHTML = dots[slideIndex - 1].alt;
+      
+    }
+
+    
+
+    function setHREF() {
+      
+      var type = localStorage.getItem('currentType');
+      console.log(type);
+    if (type === 'labTechnician') {
+      document.getElementById('labG301').setAttribute('href', 'Laboratory-LabTech.html');
+      document.getElementById('labG302').setAttribute('href', 'Laboratory-LabTech.html');
+      document.getElementById('labG303').setAttribute('href', 'Laboratory-LabTech.html');
+    } else {
+      document.getElementById('labG301').setAttribute('href', 'Laboratory-Student.html');
+      document.getElementById('labG302').setAttribute('href', 'Laboratory-Student.html');
+      document.getElementById('labG303').setAttribute('href', 'Laboratory-Student.html');
+    }
+  }
+
+  </script>
+
+</body>
+
+</html>

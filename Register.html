@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+    <title>Register</title>
+    <link rel="icon" href="images/dlsu-logo.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: slideIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Add animation for initial load */
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .form-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-right: 20px;
+            transition: transform 0.3s ease; /* Add transition property for smooth size change */
+        }
+
+        .form-container.large {
+            transform: scale(1.4); /* Increase scale to zoom in */
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-left: 150px;
+            width: 150px;
+        }
+
+        .logo {
+            max-width: 200%;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 10px 0;
+            transition: all 0.3s ease; /* Add transition property for smooth size change */
+        }
+
+        .input-container label {
+            color: #016836;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .input-container input[type="text"],
+        .input-container input[type="password"],
+        .input-container select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #016836;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: #016836;
+        }
+
+        .error-message {
+            color: red;
+            font-style: italic;
+            text-align: left;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .redirect-link {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .submit-button {
+            background-color: #016836;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #408e68;
+        }
+
+        p, h2 {
+            color: #016836;
+        }
+
+        ::placeholder{
+            font-size: smaller;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container" id="registerForm">
+            <h2>Register</h2>
+            <div class="input-container">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="for_example@dlsu.edu.ph" onfocus="adjustContainerSize(this)" onblur="resetContainerSize()">
+            </div>
+            <div class="input-container">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Use a strong password" onfocus="adjustContainerSize(this)" onblur="resetContainerSize()">
+            </div>
+            <div class="input-container">
+                <label for="repassword">Re-enter password</label>
+                <input type="password" id="repassword" onfocus="adjustContainerSize(this)" onblur="resetContainerSize()">
+            </div>
+            <div class="input-container">
+                <label for="accountType">Account Type</label>
+                <select id="accountType" onfocus="adjustContainerSize(this)" onblur="resetContainerSize()">
+                    <option value="student">Student</option>
+                    <option value="labTechnician">Lab Technician</option>
+                </select>
+            </div>
+            <p id="error-message" class="error-message"></p>
+            <p class="redirect-link">Already have an account? <a href="login.html">Login</a></p>
+            <button class="submit-button" onclick="submitRegisterForm()">Submit</button>
+        </div>
+        <div class="logo-container">
+            <img class="logo" src="images/dlsu-logo.png" alt="DLSU Logo">
+        </div>
+    </div>
+    <script>
+        // JavaScript to handle input changes and adjust container size
+        function adjustContainerSize(input) {
+            const formContainer = document.getElementById('registerForm');
+            const inputContainers = document.querySelectorAll('.input-container');
+
+            inputContainers.forEach(container => {
+                if (container.contains(input)) {
+                    container.classList.add('large');
+                } else {
+                    container.classList.remove('large');
+                }
+            });
+            formContainer.classList.add('large');
+        }
+
+        function resetContainerSize() {
+            const formContainer = document.getElementById('registerForm');
+            const inputContainers = document.querySelectorAll('.input-container');
+
+            inputContainers.forEach(container => {
+                container.classList.remove('large');
+            });
+            formContainer.classList.remove('large');
+        }
+    </script>
+</body>
+</html>

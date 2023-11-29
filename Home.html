@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome!</title>
+    <link rel="icon" href="images/dlsu-logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/door-1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif;
+            color: black;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;    
+ 
+        }
+
+        .welcome-text {
+            font-size: 100px;
+            text-shadow: 2px 2px black;
+            font-weight: bold;
+            margin-top: 200px;
+            color: #fff;
+            text-align: center;
+            margin-right: 15px;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container {
+            display: flex;
+            margin-right: 30px;
+            margin-left: 50px;
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-menu {
+            display: none;
+            position: absolute;
+            background-color: #a3a3a3;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            padding: 12px;
+            border-radius: 20px;
+            right: -5px;
+            top: 60px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-menu p {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container .profile-menu p:hover {
+            color: rgba(0, 148, 76, 0.7); /* Change text color on hover */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container:hover .profile-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(to bottom right, #dedede, #93b1a7); /* Adjust gradient from white (#fff) to gray (#a3a3a3) */
+            animation: fadeDown 0.5s ease; /* Animation */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Move menu upward initially */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Bring menu down to its original position */
+            }
+        }
+
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header {
+            background-color: #242424; /* Graphite-colored background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            width: 200px; /* Adjust the width as needed */
+            margin-left: 20px;
+            height: auto;
+        }
+
+        .header-button-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 40px;
+            margin-left: 550px;
+            gap: 30px;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .label {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        .popup-content {
+            background: #242424;
+            margin: 15% auto;
+            padding: 20px;
+            width: 30%;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+            position: relative;
+    }
+
+        .close {
+            color: #000;
+            position: absolute;
+            top: 5px; /* Adjust as needed */
+            right: 5px; /* Adjust as needed */
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #555;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .popup-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'Montserrat', sans-serif;  
+        }
+
+        .popup-button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        /* Initial setup */
+        .error-popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            background: linear-gradient(to bottom right, #f44336, #ff6f61);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            width: 300px;
+            z-index: 1;
+            opacity: 0; 
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease-in-out; /* Transition effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid #f44336;
+        }
+
+        /* Show popup */
+        .error-popup.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .error-popup .close {
+            color: white;
+            float: right;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease; /* Close button color transition */
+        }
+
+        .error-popup .close:hover {
+            color: black;
+        }
+
+
+        .button-body-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 50px;
+            gap: 30px;
+            margin-left: 40px;
+        }
+
+        .button-body {
+            text-shadow: 1px 2px black;
+            box-shadow: 5px 5px 2px 0 rgba(24, 31, 33, 0.6);
+            height: 60px;
+            width: 200px;
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 13px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .button-body:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        .dropdown-label {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .dropdown-menu {
+            width: 250px;
+            height: 40px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #000; /* Border color */
+            background-color: #fff;
+            border-radius: 8px;
+            color: #000; /* Text color */
+            padding: 8px 12px;
+            outline: none;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        /* Add a hover effect */
+        .dropdown-menu:hover {
+            border-color: #45a049; /* Darker border color on hover */
+        }
+
+        /* Add a focus effect */
+        .dropdown-menu:focus {
+            border-color: #45a049; /* Different border color when focused */
+            color: #000; /* Different text color when focused */
+        }
+
+        .error-notification {
+            position: fixed;
+            top: 425px; /* Adjust top position as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 9999; /* Set a high z-index value to ensure it appears on top */
+        }
+
+        .availability-popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        .availability-popup .popup-content {
+            background: #242424;
+            margin: 15% auto;
+            padding: 20px;
+            width: 30%;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+
+        .right-side{
+            position: absolute;
+            top: 10%;
+            left: 50%;
+        }   
+        
+        .left-side {
+            font-size: 100px;
+            width: 850px;
+            margin: 0;
+            margin-bottom: 100px;
+            margin-left: 5%;
+            padding: 0;
+            overflow: hidden; 
+            height: 1100px;
+        }
+
+.slider {
+    display: flex;
+    width: 100%; 
+    animation: slide-animation 20s infinite; /* Adjusted animation duration */
+    margin-top: 120px; 
+    position: relative;
+}
+
+.slide {
+    flex: 0 0 calc(100%); 
+    box-sizing: border-box;
+    height: 100%;    
+    position: relative;    
+}
+
+.slide img {
+    width: 90%; 
+    height: auto;
+    border-radius: 10px; 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Adjusted box shadow */
+}
+
+.slider-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;   
+    margin-top: 120px;         
+}
+
+#slide-text {
+    position: absolute;
+    width: 90%;
+    height: 100%;
+    color: #fff; /* Text color */
+    padding: 10px; /* Adjust as needed */
+    font-size: 40px; /* Reduced font size */
+    font-family: "Roboto Mono", sans-serif;
+    font-weight: bold;
+    color: #54C571;    
+    line-height: 20px;
+    text-shadow: 2px 2px black;
+    text-align: justify;
+    left: 0;
+    margin-top: 100px;   
+}
+
+#slide-desc {
+    background: none;
+    color: white;
+    font-size: 16px; /* Reduced font size */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.slider-dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Adjust spacing as needed */
+}
+
+.slider-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc; /* Inactive dot color */
+    margin: 0 5px; /* Adjust spacing between dots */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.slider-dot.active {
+    background-color: #000; /* Active dot color */
+}
+
+
+/* Animation for slider */
+@keyframes slide-animation {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-100%);
+    }
+    75% {
+        transform: translateX(-200%);
+    }
+    100% {
+        transform: translateX(-200%);
+    }
+    125% {
+        transform: translateX(-100%);
+    }
+}
+
+            
+        /* UPDATED CODE FOR MEDIA SCREENS */
+        @media screen and (min-width: 992px) {
+            .header img {
+                width: 350px;
+            }
+
+            .header {   
+                padding: 20px;
+            }
+
+            .left-side {
+                font-size: 100px;
+                width: 600px;
+                margin: 0;
+                margin-left: 10%;
+                padding: 0;
+                overflow: hidden; 
+                height: 800px;
+            }
+
+            .right-side{
+                position: absolute;
+                top: 10%;
+                left: 50%;
+                right: 5%;
+                align-items: center;
+            }   
+
+        }
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    // Your existing code...
+    loadUser(localStorage.getItem('currentEmail'));
+    loadCurrentAccount(localStorage.getItem('currentLogIn'))
+    loadData();
+
+    // Count the number of slides
+    const numSlides = document.querySelectorAll('.slide').length;
+
+    // Get the slider dots container
+    const sliderDotsContainer = document.querySelector('.slider-dots-container');
+
+    // Create dots based on the number of slides
+    for (let i = 0; i < numSlides; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('slider-dot');
+        if (i === 0) {
+            dot.classList.add('active');
+        }
+        sliderDotsContainer.appendChild(dot);
+    }
+});
+
+    </script>
+
+    <!-- UPDATED CODE FOR HEADER -->
+    <div class="header">
+        <div class="header-logo">
+            <img src="images/home-logo.png" alt="Your Logo">
+        </div>
+        <div class="header-button-container">
+            <button class="header-button" onclick="redirectToHomePage()">Home</button>
+            <button class="header-button" onclick="redirectToReservationsPage()">Reservations</button>
+
+            <div class="profile-image-container">
+                <img class="header-profile-image" src="" alt="User Profile Image">
+                <div class="profile-menu">
+                    <p onclick="viewProfile()">View User Profile</p>
+                    <p onclick="logout()">Logout</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-side">
+            <div class="slider">   
+                <div class="slide">
+                    <img src="images\403.png" alt="Slide 1">
+                    <div class="slider-text">
+                        <div id="slide-text">
+                            <!-- <br>G301 <br><br><span id="slide-desc">Embark on a journey of innovation, discovery, and academic excellence. G301 invites you to be part of a community where passion meets purpose and where each day unfolds new possibilities. As you enter G301, you're not just stepping into a lab; you're entering a realm where ideas flourish, and the pursuit of knowledge knows no bounds.
+                                <br><br> Welcome to G301, where innovation is unleashed, and the future is shaped by the thinkers, creators, and leaders of today.</span>  -->
+
+                                <br><br><br>G301 <br><br><span id="slide-desc">Welcome to G301, where innovation is unleashed, and the future is shaped by the thinkers, creators, and leaders of today.</span> 
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images\404.png" alt="Slide 2">
+                    <div class="slider-text">
+                        <div id="slide-text">
+                            <!-- <br>G302 <br><br><span id="slide-desc">Embark on a journey of discovery, collaboration, and intellectual growth. G302 invites you to join a community where scientific inquiry knows no bounds and where the pursuit of knowledge is a shared passion. As you step into G302, you step into a space where the wonders of science come to life.
+                                <br><br>Welcome to G302, where discovery and imagination converge, and the future is shaped by the inquisitive minds of today.</span>  -->
+
+                                <br><br><br>G302 <br><br><span id="slide-desc">Welcome to G302, where discovery and imagination converge, and the future is shaped by the inquisitive minds of today.</span> 
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images\405v2.png" alt="Slide 3">
+                    <div class="slider-text">
+                        <div id="slide-text">
+                            <!-- <br>G303 <br><br><span id="slide-desc">In G303, the journey is as important as the destination. Discover the wonders of science, collaborate with fellow explorers, and thrive in an environment that values intellectual curiosity. G303 is where the next generation of scientific leaders is molded.
+                                <br><br>Welcome to Lab Room G303, where scientific frontiers are pushed, and the pursuit of knowledge is a shared adventure.</span>  -->
+
+                                <br><br><br>G303 <br><br><span id="slide-desc">Welcome to Lab Room G303, where scientific frontiers are pushed, and the pursuit of knowledge is a shared adventure.</span> 
+                        </div>
+                    </div>
+                </div>     
+            </div>
+            <div class="slider-dots-container">
+                <!-- Add as many dots as slides you have -->
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="welcome-text">Welcome!</div>
+            <div class="button-body-container">
+                <button class="button-body" onclick="redirectToSelectionPage()">Slot Reserver</button>
+                <button class="button-body" onclick="openUserSearch()">User Searcher</button>
+                <button class="button-body" onclick="openSlotSearcher()">Slot Searcher</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorNotification" class="error-notification"></div>
+
+    <div id="searchPopup" class="popup">
+        <div class="popup-content">
+            <span onclick="closeSearchPopup()" class="close">&times;</span>
+            <p class="dropdown-label">Please select Date:</p>
+            <select id="dateSelect" class="dropdown-menu"></select>
+            <p class="dropdown-label">Please select Start Time:</p>
+            <select id="startTimeSelect" class="dropdown-menu"></select>
+            <p class="dropdown-label">Please select End Time:</p>
+            <select id="endTimeSelect" class="dropdown-menu"></select>
+            <p class="dropdown-label">Please select Room:</p>
+            <select id="roomSelect" class="dropdown-menu">
+                <option value="G301">G301</option>
+                <option value="G302">G302</option>
+                <option value="G303">G303</option>
+            </select>
+            <div class="popup-button-container">
+                <button class="popup-button" onclick="searchSlots()">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="availabilityPopup" class="availability-popup"></div>
+
+    <div id="customPopup" class="popup">
+        <div class="popup-content">
+            <span onclick="closePopup()" class="close">&times;</span>
+            <p class="label">Please enter the email of the user you want to search for:</p>
+            <input type="text" id="userInput" placeholder="Enter email here...">
+            <div class="popup-button-container">
+                <button class="popup-button" onclick="submitUser()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="errorPopup" class="error-popup">
+        <span class="close" onclick="closeErrorPopup()">&times;</span>
+        <p id="errorText"></p>
+    </div>
+
+    <script>
+
+
+
+for (let i = 0; i < 8; i++) {
+    const currentDate = new Date(); // Create a new date object in each iteration
+    currentDate.setDate(currentDate.getDate() + i);
+    const option = document.createElement('option');
+    const dateString = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    option.value = formattedDate;
+    option.text = dateString;
+    dateSelect.appendChild(option);
+}
+
+
+// Populate start time dropdown
+for (let hour = 7; hour < 19; hour++) {
+    for (let minute = 0; minute < 60; minute += 30) {
+        const option = document.createElement('option');
+        const displayHour = hour > 12 ? hour - 12 : hour;
+        const displayMinute = minute === 0 ? '00' : minute;
+        const displayPeriod = hour >= 12 ? 'PM' : 'AM';
+        option.value = `${displayHour}:${displayMinute} ${displayPeriod}`;
+        option.text = `${displayHour}:${displayMinute} ${displayPeriod}`;
+        startTimeSelect.appendChild(option);
+    }
+}
+
+// Populate end time dropdown
+for (let hour = 7, minute = 30; hour < 19 || (hour === 19 && minute === 0);) {
+    const displayHour = hour > 12 ? hour - 12 : hour;
+    const displayMinute = minute === 0 ? '00' : minute;
+    const displayPeriod = hour >= 12 ? 'PM' : 'AM';
+
+    const option = document.createElement('option');
+    option.value = `${displayHour}:${displayMinute} ${displayPeriod}`;
+    option.text = `${displayHour}:${displayMinute} ${displayPeriod}`;
+    endTimeSelect.appendChild(option);
+
+    minute += 30;
+    if (minute === 60) {
+        minute = 0;
+        hour++;
+    }
+}
+
+        async function fetchReservations(date, startTime, endTime, lab) {
+            try {
+                const response = await fetch(`http://localhost:3000/reservations`);
+                const reservations = await response.json();
+
+                // Filter reservations based on criteria
+                const convStartTime = convertTimeToDate(startTime);
+                const convEndTime = convertTimeToDate(endTime);
+
+                const matchingReservations = reservations.filter(reservation => 
+                    reservation.date === date &&
+                    reservation.lab === lab &&
+                    ((convertTimeToDate(reservation.startTime) >= convStartTime && convertTimeToDate(reservation.startTime) < convEndTime) ||
+                    (convertTimeToDate(reservation.endTime) > convStartTime && convertTimeToDate(reservation.endTime) <= convEndTime) ||
+                    (convertTimeToDate(reservation.startTime) <= convStartTime && convertTimeToDate(reservation.endTime >= convEndTime)))
+                );
+
+                
+                return matchingReservations;
+            } catch (error) {
+                console.error('Error fetching reservations:', error);
+                return []; // Return empty array in case of an error
+            }
+        }
+
+        function calculateAvailableSlots(totalSlots, bookedReservations) {
+    let bookedSeats = 0;
+
+
+    bookedSeats += bookedReservations.length;
+    
+
+    return totalSlots - bookedSeats;
+}
+
+function searchSlots() {
+    const selectedDateValue = document.getElementById('dateSelect').value;
+    
+    // Convert the selected date value to a Date object
+    const selectedDate = new Date(selectedDateValue);
+
+    // Add 1 day to the selected date
+    selectedDate.setDate(selectedDate.getDate());
+
+    // Format the date
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = selectedDate.toLocaleDateString('en-US', options);
+    const startTime = document.getElementById('startTimeSelect').value;
+    const endTime = document.getElementById('endTimeSelect').value;
+    const lab = document.getElementById('roomSelect').value;
+
+    if (startTime === endTime) {
+        const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "Start and end times cannot be the same.";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000);
+        return;
+    } else {
+        const startDate = convertTimeToDate(startTime);
+        const endDate = convertTimeToDate(endTime);
+
+        if (startDate > endDate) {
+            const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "Start time cannot be after the end time.";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000);
+        return;
+        } else if (endDate < startDate) {
+            const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "End time cannot be before the start time.";
+        errorNotification.style.display = 'block';
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000);
+        return;
+        }
+    }
+
+    // Assuming you have the total slots available for the given time frame and lab
+    const totalSlots = 25; // Example total slots available
+
+    fetchReservations(formattedDate, startTime, endTime, lab)
+        .then(reservations => {
+            const availableSlots = calculateAvailableSlots(totalSlots, reservations);
+            if (availableSlots > 0) {
+                showAvailableSlots(availableSlots, totalSlots);
+                // Handle available slots
+            } else {
+                // Handle no available slots case
+            }
+        });
+}
+
+        function openSlotSearcher() {
+            document.getElementById("searchPopup").style.display = "block";
+        }
+
+        function closeSearchPopup() {
+            document.getElementById("searchPopup").style.display = "none";
+        }
+
+
+        function openUserSearch() {
+            document.getElementById("customPopup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("customPopup").style.display = "none";
+        }
+
+        async function submitUser() {
+            var userInput = document.getElementById("userInput").value;
+            if (userInput.trim() !== "") {
+                try {
+                    const response = await fetch(`http://localhost:3000/accounts/${userInput}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.');
+                    }
+                    const user = await response.json();
+                    console.log(user);
+                    
+                    if (user.error) {
+                        displayErrorPopup("We couldn't find a user matching your search!");
+                    } else {
+                        openUserProfile(user.email);
+                        closePopup();
+                    }
+                } catch (error) {
+                    displayErrorPopup("We couldn't find a user matching your search!");
+                }
+            } else {
+                displayErrorPopup("Please enter a valid user.");
+            }
+        }
+
+    function displayErrorPopup(message) {
+            var errorPopup = document.getElementById("errorPopup");
+            var errorText = document.getElementById("errorText");
+            errorText.textContent = message;
+            errorPopup.classList.add("show");
+        }
+
+        function closeErrorPopup() {
+            var errorPopup = document.getElementById("errorPopup");
+            errorPopup.classList.remove("show");
+        }
+
+
+        function showAvailableSlots(availableSlots, totalSlots) {
+            const availabilityPopup = document.getElementById('availabilityPopup');
+            availabilityPopup.innerHTML = `
+                <div class="popup-content">
+                    <span onclick="closeAvailabilityPopup()" class="close">&times;</span>
+                    <p class="label">Available Slots</p>
+                    <p>Slots Remaining: ${availableSlots}/${totalSlots}</p>
+                </div>
+            `;
+            availabilityPopup.style.display = 'block';
+        }
+
+        function closeAvailabilityPopup() {
+            const availabilityPopup = document.getElementById('availabilityPopup');
+            availabilityPopup.style.display = 'none';
+        }
+
+//         document.addEventListener('DOMContentLoaded', function () {
+//     // Count the number of slides
+//     const numSlides = document.querySelectorAll('.slide').length;
+
+//     // Get the slider dots container
+//     const sliderDotsContainer = document.querySelector('.slider-dots-container');
+
+//     // Create dots based on the number of slides
+//     for (let i = 0; i < numSlides; i++) {
+//         const dot = document.createElement('div');
+//         dot.classList.add('slider-dot');
+//         if (i === 0) {
+//             dot.classList.add('active');
+//         }
+//         sliderDotsContainer.appendChild(dot);
+//     }
+// });
+    </script>
+</body>
+</html>

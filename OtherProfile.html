@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Other Profile</title>
+    <link rel="icon" href="images/dlsu-logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/gokgok123.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif; 
+            color: #000;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .header {
+            background-color: #242424; /* Graphite-colored background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            width: 200px; /* Adjust the width as needed */
+            margin-left: 20px;
+            height: auto;
+        }
+
+        .header-button-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 40px;
+            gap: 30px;
+        }
+
+        .header-button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .label {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        
+        .header-profile-image-container {
+            display: flex;
+            margin-right: 30px;
+            margin-left: 50px;
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .header-profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .header-profile-menu {
+            display: none;
+            position: absolute;
+            background-color: #a3a3a3;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            padding: 12px;
+            border-radius: 20px;
+            right: -5px;
+            top: 60px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .header-profile-menu p{
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container .profile-menu p:hover {
+            color: rgba(0, 148, 76, 0.7); /* Change text color on hover */
+        }
+
+
+        .header-profile-image-container:hover .header-profile-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(to bottom right, #dedede, #93b1a7); /* Adjust gradient from white (#fff) to gray (#a3a3a3) */
+            animation: fadeDown 0.5s ease; /* Animation */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Move menu upward initially */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Bring menu down to its original position */
+            }
+        }
+
+        .profile-box {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            margin: auto;
+            width: 70%;
+            margin-top: 50px;
+        }
+
+        .profile-container {
+            width: 100%;
+            text-align: center;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color:#fff;
+        }
+
+        .user-details {
+            font-size: 18px;
+            margin-bottom: 0px;
+            color:#fff;
+        }
+
+        .profile-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-buttons button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00703C;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .reservation-heading {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: left;
+            color:#fff;
+        }
+        
+        #reservationTableContainer{
+          color: white;
+        }
+
+        table {
+            width: 100%;
+            background-color: rgba(36, 36, 36, 0.7);
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            color: white;
+            border: 1px solid #333;
+        }
+
+        th {
+            background-color: rgba(1, 104, 54, 0.7); /* Blue background for header */
+        }
+
+        tr {
+            background-color: #333; /* Dark gray background for table rows */
+        }
+
+        tr:nth-child(even) {
+            background-color: #444; /* Slightly lighter gray for even rows */
+        }
+
+        tr:hover {
+            background-color: #7b968d; /* Hover effect for rows */
+        }
+
+      .reservation-container {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #confirmationPopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+
+        #editProfilePopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+
+        #editProfilePopup .popup-buttons button {
+            display: block;
+            width: 100%;
+            margin: 5px;
+        }
+
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .popup-buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-buttons button:hover {
+            filter: brightness(90%);
+        }
+
+        
+
+        .popup-buttons button.confirm {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .popup-buttons button.cancel {
+            background-color: #f44336;
+            color: white;
+        }
+
+         /* Media Query for Larger Screens */
+         @media screen and (min-width: 768px) {
+            .header img {
+                width: 350px; /* Adjust the width for larger screens */
+            }
+
+            .header {
+                padding: 20px;
+            }
+        }
+     
+
+
+    </style>
+</head>
+
+<body>
+
+
+<div class="header">
+    <div class="header-logo">
+        <img src="images/home-logo.png" alt="Your Logo">
+    </div>
+    <div class="header-button-container">
+        <button class="header-button" onclick="redirectToHomePage()">Home</button>
+        <button class="header-button" onclick="redirectToReservationsPage()">Reservations</button>
+
+        <div class="header-profile-container">
+            <div class="header-profile-image-container">
+                <img class="header-profile-image" src="" alt="User Profile Image">
+                <div class="header-profile-menu">
+                    <p onclick="viewProfile()">View User Profile</p>
+                    <p onclick="logout()">Logout</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-box">
+    <div class="profile-container">
+        <!-- Existing content -->
+        <img class="profile-image" src="" alt="Profile Picture">
+        <div class="user-name"></div>
+        <div class="user-details">
+            <p>Email:</p>
+            <p>Bio:</p>
+        </div>
+
+        <!-- Add the buttons here -->
+        
+    </div>
+
+    <div class="reservation-container">
+        <!-- Existing content -->
+        <div class="reservation-heading">Current Reservations</div>
+        <div id="reservationTableContainer"></div>
+    </div>
+</div>
+
+<div id="confirmationPopup">
+    <div class="popup-content">
+        <p>Are you sure you want to delete your account? This cannot be undone.</p>
+        <div class="popup-buttons">
+            <button class="confirm" onclick="confirmDeleteAccount()">Confirm</button>
+            <button class="cancel" onclick="closePopup()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="editProfilePopup">
+    <div class="popup-content">
+        <p>Edit Profile</p>
+        <div class="popup-buttons">
+            <button class="edit-profile-image" onclick="editProfileImage()">Edit Profile Image</button>
+            <button class="edit-name" onclick="editName()">Edit Name</button>
+            <button class="edit-bio" onclick="editBio()">Edit Bio</button>
+            <button class="cancel" onclick="closeEditProfilePopup()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var accountToView = localStorage.getItem('otherUserEmail');
+            loadCurrentAccount(localStorage.getItem('currentLogIn'));
+            loadOtherUser();
+          //  displayUserReservations(accountToView);
+            console.log(accountToView);
+        });
+
+        async function fillReservationList() {
+    try {
+        const response = await fetch('http://localhost:3000/reservationList');
+        const data = await response.json();
+        console.log(data); // Check if data is fetched correctly
+        return data;
+    } catch (error) {
+        console.error('Error fetching reservations:', error);
+        return []; // Return an empty array or appropriate default value in case of an error
+    }
+}
+
+
+// Call the function and handle the returned Promise
+fillReservationList()
+    .then(reservationList => {
+        displayReservations(reservationList)
+    });
+
+
+    function displayReservations(reservationList) {
+    const accountInUse = localStorage.getItem('otherUserEmail');
+    const filteredReservations = reservationList.filter(function(reservation) {
+        return reservation.owner === accountInUse && reservation.anonymous !== 'yes';
+    });
+
+    let previousReservationNum = null;
+    let rowColorCounter = 0;
+
+    var tableContainer = document.getElementById("reservationTableContainer");
+    var tableHTML = "<table border='1'>";
+    tableHTML += "<tr><th>Reservation Number</th><th>Date</th><th>Time</th><th>Lab</th><th>Seat Number</th><th>Booking Date</th><th>Booking Time</th></tr>";
+
+    filteredReservations.forEach(function(reservation, index, reservations) {
+        var count = reservations.filter(function(res) {
+            return res.reservationNum === reservation.reservationNum;
+        }).length;
+
+        if (index === 0 || reservation.reservationNum !== previousReservationNum) {
+            rowColorCounter++;
+            const rowClass = 'reservation-row-' + (rowColorCounter % 2 === 0 ? 'even' : 'odd');
+            tableHTML += "<tr class='" + rowClass + "'>";
+            tableHTML += "<td rowspan='" + count + "'>" + reservation.reservationNum + "</td>";
+        }
+
+        tableHTML += "<td>" + reservation.date + "</td>";
+
+        if (index === 0 || reservation.reservationNum !== reservations[index - 1].reservationNum) {
+            tableHTML += "<td rowspan='" + count + "'>" + reservation.startTime + " - " + reservation.endTime + "</td>";
+            tableHTML += "<td rowspan='" + count + "'>" + reservation.lab + "</td>";
+        }
+
+        tableHTML += "<td>" + reservation.seatNum + "</td>";
+
+        if (index === 0 || reservation.reservationNum !== reservations[index - 1].reservationNum) {
+            tableHTML += "<td rowspan='" + count + "'>" + reservation.bookingDate + "</td>";
+            tableHTML += "<td rowspan='" + count + "'>" + reservation.bookingTime + "</td>";
+        }
+
+        tableHTML += "</tr>";
+        previousReservationNum = reservation.reservationNum;
+    });
+
+    tableHTML += "</table>";
+    tableContainer.innerHTML = tableHTML;
+}
+
+        function displayUserReservations(email) {
+  var filteredReservations = reservationList.filter(function (reservation) {
+    return reservation.owner === email;
+  });
+
+  var tableContainer = document.getElementById("reservationTableContainer");
+        var table = document.createElement("table");
+        table.innerHTML = `
+          <tr>
+            <th>Reservation Number</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Lab</th>
+            <th>Seat Number</th>
+            <th>Owner</th>
+            <th>Anonymous</th>
+            <th>Booking Date</th>
+            <th>Booking Time</th>
+          </tr>
+        `;
+
+        filteredReservations.forEach(function (reservation) {
+          var row = table.insertRow();
+          row.innerHTML = `
+            <td>${reservation.reservationNum}</td>
+            <td>${reservation.date}</td>
+            <td>${reservation.time}</td>
+            <td>${reservation.lab}</td>
+            <td>${reservation.seatNum}</td>
+            <td>${reservation.owner}</td>
+            <td>${reservation.anonymous}</td>
+            <td>${reservation.bookingDate}</td>
+            <td>${reservation.bookingTime}</td>
+          `;
+        });
+
+        tableContainer.appendChild(table);
+}
+
+
+      function editReservation(reservationNum) {
+        // Add your logic for editing the reservation here
+        console.log("Editing reservation: " + reservationNum);
+      }
+
+      function editProfile() {
+    var popupContent = document.createElement('div');
+    popupContent.classList.add('popup-content');
+    var editOptions = ['Edit Profile Image', 'Edit Name', 'Edit Bio', 'Cancel'];
+
+    var popupButtons = document.createElement('div');
+    popupButtons.classList.add('popup-buttons');
+
+    popupContent.innerHTML = '<p>Edit Profile</p>';
+
+    for (var i = 0; i < editOptions.length; i++) {
+        var button = document.createElement('button');
+        button.textContent = editOptions[i];
+        button.classList.add('edit-profile-button');
+        if (editOptions[i] === 'Edit Name') {
+            button.addEventListener('click', editName);
+        } else if (editOptions[i] === 'Edit Profile Image') {
+            button.addEventListener('click', editProfileImage);
+        } else if (editOptions[i] === 'Edit Bio') {
+            button.addEventListener('click', editBio);
+        } else {
+            button.classList.add('cancel');
+            button.addEventListener('click', closeEditProfilePopup);
+        }
+        popupButtons.appendChild(button);
+    }
+
+    popupContent.appendChild(popupButtons);
+
+    var editProfilePopup = document.getElementById('editProfilePopup');
+    editProfilePopup.innerHTML = '';
+    editProfilePopup.appendChild(popupContent);
+    editProfilePopup.style.display = 'flex';
+}
+
+
+function editProfileImage() {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = function (event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var newProfileImage = e.target.result;
+                var profileImageElement = document.querySelector('.profile-image');
+                profileImageElement.setAttribute('src', newProfileImage); // Update the image source
+                // Add logic to handle the selected image file
+                console.log('Selected file:', file);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            console.log('No file selected');
+        }
+        closeEditProfilePopup();
+    };
+    input.click();
+}
+
+function editName() {
+    var popupContent = document.createElement('div');
+    popupContent.classList.add('popup-content');
+    var inputField = document.createElement('input');
+    inputField.setAttribute('type', 'text');
+    inputField.setAttribute('placeholder', 'Enter new name');
+    popupContent.appendChild(inputField);
+
+    var saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.addEventListener('click', function() {
+        var newName = inputField.value;
+        if (newName.trim() !== '') {
+            console.log('New name:', newName);
+            document.querySelector('.user-name').textContent = newName; // Update the displayed name
+            // Add logic to handle the new name here
+        }
+        closeEditProfilePopup();
+    });
+
+    var backButton = document.createElement('button');
+    backButton.textContent = 'Back';
+    backButton.classList.add('back');
+    backButton.addEventListener('click', editProfile);
+
+    popupContent.appendChild(saveButton);
+    popupContent.appendChild(backButton);
+
+    var editProfilePopup = document.getElementById('editProfilePopup');
+    editProfilePopup.innerHTML = ''; // Clear existing content
+    editProfilePopup.appendChild(popupContent);
+    editProfilePopup.style.display = 'flex';
+}
+
+function editBio() {
+    var popupContent = document.createElement('div');
+    popupContent.classList.add('popup-content');
+    var inputField = document.createElement('textarea'); // Changed the input field to a textarea
+    inputField.setAttribute('placeholder', 'Enter new bio'); // Changed the placeholder text
+    inputField.style.height = '100px'; // Enlarged the input field
+    popupContent.appendChild(inputField);
+
+    var saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.addEventListener('click', function() {
+        var newBio = inputField.value;
+        if (newBio.trim() !== '') {
+            console.log('New bio:', newBio);
+
+            document.querySelectorAll('.user-details p')[1].textContent = `Bio: ${newBio}`; // Update the displayed bio
+        }
+        closeEditProfilePopup();
+    });
+
+    var backButton = document.createElement('button');
+    backButton.textContent = 'Back';
+    backButton.classList.add('back');
+    backButton.addEventListener('click', editProfile);
+
+    popupContent.appendChild(saveButton);
+    popupContent.appendChild(backButton);
+
+    var editProfilePopup = document.getElementById('editProfilePopup');
+    editProfilePopup.innerHTML = ''; // Clear existing content
+    editProfilePopup.appendChild(popupContent);
+    editProfilePopup.style.display = 'flex';
+}
+
+        function closeEditProfilePopup() {
+            document.getElementById('editProfilePopup').style.display = 'none';
+        }
+        
+
+
+        function deleteAccount() {
+            document.getElementById('confirmationPopup').style.display = 'flex';
+        }
+
+        function confirmDeleteAccount() {
+            // Add your logic for deleting the account here
+            console.log("Deleting account");
+            closePopup();
+        }
+
+        function closePopup() {
+            document.getElementById('confirmationPopup').style.display = 'none';
+        }
+
+
+    </script>
+    
+</body>
+
+
+</html>

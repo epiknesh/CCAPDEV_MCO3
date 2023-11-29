@@ -1,0 +1,208 @@
+[{
+  "_id": {
+    "$oid": "6559840c3b406b5ce04989f7"
+  },
+  "reservationNum": 13,
+  "date": "Saturday, November 25, 2023",
+  "startTime": "7:00 AM",
+  "endTime": "7:30 AM",
+  "lab": "G301",
+  "seatNum": 5,
+  "owner": "andrei_castillo@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-19",
+  "bookingTime": "11:42:04",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655984913b406b5ce0498a1e"
+  },
+  "reservationNum": 14,
+  "date": "Saturday, November 25, 2023",
+  "startTime": "7:00 AM",
+  "endTime": "7:30 AM",
+  "lab": "G301",
+  "seatNum": 1,
+  "owner": "norman_salas@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-19",
+  "bookingTime": "11:44:17",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac438bd1933ec60fc9e65"
+  },
+  "reservationNum": 15,
+  "date": "Monday, November 27, 2023",
+  "startTime": "7:00 AM",
+  "endTime": "2:30 PM",
+  "lab": "G301",
+  "seatNum": 1,
+  "owner": "sean_bartolome@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:28:08",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac438bd1933ec60fc9e67"
+  },
+  "reservationNum": 15,
+  "date": "Monday, November 27, 2023",
+  "startTime": "7:00 AM",
+  "endTime": "2:30 PM",
+  "lab": "G301",
+  "seatNum": 2,
+  "owner": "sean_bartolome@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:28:08",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac438bd1933ec60fc9e69"
+  },
+  "reservationNum": 15,
+  "date": "Monday, November 27, 2023",
+  "startTime": "7:00 AM",
+  "endTime": "2:30 PM",
+  "lab": "G301",
+  "seatNum": 3,
+  "owner": "sean_bartolome@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:28:08",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac445bd1933ec60fc9e72"
+  },
+  "reservationNum": 16,
+  "date": "Monday, November 27, 2023",
+  "startTime": "11:30 AM",
+  "endTime": "4:30 PM",
+  "lab": "G301",
+  "seatNum": 19,
+  "owner": "sean_bartolome@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:28:21",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac445bd1933ec60fc9e74"
+  },
+  "reservationNum": 16,
+  "date": "Monday, November 27, 2023",
+  "startTime": "11:30 AM",
+  "endTime": "4:30 PM",
+  "lab": "G301",
+  "seatNum": 20,
+  "owner": "sean_bartolome@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:28:21",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac5e9bd1933ec60fc9e87"
+  },
+  "reservationNum": 17,
+  "date": "Sunday, November 26, 2023",
+  "startTime": "3:00 PM",
+  "endTime": "5:30 PM",
+  "lab": "G302",
+  "seatNum": 6,
+  "owner": "yuan_patawaran@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:35:21",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac5e9bd1933ec60fc9e89"
+  },
+  "reservationNum": 17,
+  "date": "Sunday, November 26, 2023",
+  "startTime": "3:00 PM",
+  "endTime": "5:30 PM",
+  "lab": "G302",
+  "seatNum": 11,
+  "owner": "yuan_patawaran@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:35:21",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac5e9bd1933ec60fc9e8b"
+  },
+  "reservationNum": 17,
+  "date": "Sunday, November 26, 2023",
+  "startTime": "3:00 PM",
+  "endTime": "5:30 PM",
+  "lab": "G302",
+  "seatNum": 12,
+  "owner": "yuan_patawaran@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:35:21",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac5e9bd1933ec60fc9e8d"
+  },
+  "reservationNum": 17,
+  "date": "Sunday, November 26, 2023",
+  "startTime": "3:00 PM",
+  "endTime": "5:30 PM",
+  "lab": "G302",
+  "seatNum": 16,
+  "owner": "yuan_patawaran@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:35:21",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac5f5bd1933ec60fc9e95"
+  },
+  "reservationNum": 18,
+  "date": "Monday, November 27, 2023",
+  "startTime": "7:00 AM",
+  "endTime": "7:30 AM",
+  "lab": "G302",
+  "seatNum": 4,
+  "owner": "yuan_patawaran@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:35:33",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655ac5f5bd1933ec60fc9e97"
+  },
+  "reservationNum": 18,
+  "date": "Monday, November 27, 2023",
+  "startTime": "7:00 AM",
+  "endTime": "7:30 AM",
+  "lab": "G302",
+  "seatNum": 5,
+  "owner": "yuan_patawaran@dlsu.edu.ph",
+  "anonymous": "no",
+  "bookingDate": "2023-11-20",
+  "bookingTime": "10:35:33",
+  "__v": 0
+}]

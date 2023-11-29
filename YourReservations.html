@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+    <title>Your Reservations</title>
+    <link rel="icon" href="images/dlsu-logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/goks-img.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif;
+            color: black;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            min-height: 100vh;
+   
+        }
+      .header {
+            background-color: #242424; /* Graphite-colored background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            width: 200px; /* Adjust the width as needed */
+            margin-left: 20px;
+            height: auto;
+        }
+
+        .header-button-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 40px;
+            margin-left: 550px;
+            gap: 30px;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        .profile-image-container {
+            display: flex;
+            margin-right: 30px;
+            margin-left: 50px;
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .header-profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .profile-menu {
+            display: none;
+            position: absolute;
+            background-color: #a3a3a3;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            padding: 12px;
+            border-radius: 20px;
+            right: -5px;
+            top: 60px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+         /* UPDATED BUTTONS TO ALL SCREENS */
+         .profile-menu p {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container .profile-menu p:hover {
+            color: rgba(0, 148, 76, 0.7); /* Change text color on hover */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container:hover .profile-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(to bottom right, #dedede, #93b1a7); /* Adjust gradient from white (#fff) to gray (#a3a3a3) */
+            animation: fadeDown 0.5s ease; /* Animation */
+        }
+
+        .error-notification {
+        position: fixed;
+        top: 425px; /* Adjust top position as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #f44336;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+        z-index: 9999; /* Set a high z-index value to ensure it appears on top */
+    }
+
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Move menu upward initially */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Bring menu down to its original position */
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .label {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #reservationTableContainer {
+            color: white;
+            max-width: 80%; /* Set a maximum width for the table */
+            margin: 0 auto; /* Center the table horizontally */
+        }
+
+        table {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            color: white;
+            border: 1px solid #1f1f1f;
+        }
+
+        .reservation-row-odd {
+        background-color: #333; /* Dark gray background for odd reservation rows */
+    }
+
+    .reservation-row-even {
+        background-color: #444; /* Slightly lighter gray for even reservation rows */
+    }
+
+        th {
+            background-color: rgba(1, 104, 54, 0.7); /* Blue background for header */
+        }
+
+        tr {
+            background-color: #333; /* Dark gray background for table rows */
+        }
+        
+
+        tr:hover {
+            background-color: #7b968d; /* Hover effect for rows */
+        }
+
+        .edit-btn {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent; /* Add a transparent border */
+            border-radius: 50px;
+            padding: 10px 25px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .edit-btn:hover {
+            background-color: transparent; /* Remove background color */
+            color: #fff; /* Set text color to white on hover */
+            border: 3px solid rgba(1, 104, 54, 0.7); /* Add white border on hover */
+            transition: background-color 0.2s, color 0.2s, border 0.2s; /* Add transitions for color and border */
+        }
+
+        .button-body-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            gap: 30px;
+        }
+
+        #reservationEditPopup {
+            display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    color: black;
+    z-index: 9998;
+}
+
+#reservationEditPopup .popup-content {
+    background: #5cdb95;
+    padding: 20px;
+    border-radius: 5px;
+    width: 450px;
+    text-align: center;
+}
+
+#reservationEditPopup .popup-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+#reservationEditPopup .popup-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#reservationEditPopup .popup-buttons button:hover {
+    filter: brightness(90%);
+}
+
+#reservationEditPopup .popup-buttons button.confirm {
+    background-color: rgba(1, 104, 54, 0.7);
+    color: white;
+}
+
+#reservationEditPopup .popup-buttons button.cancel {
+    background-color: #f44336;
+    color: white;
+}
+
+#editResAnonymousStatus {
+    transform: scale(2); /* Adjust the scale factor as needed */
+    vertical-align: middle; /* Align the checkbox vertically */
+
+}
+
+.dropdown-label {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .dropdown-menu {
+            width: 240px;
+            height: 40px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #000; /* Border color */
+            background-color: #fff;
+            border-radius: 8px;
+            color: #000; /* Text color */
+            padding: 8px 12px;
+            outline: none;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        
+
+
+
+        /* Media Query for Larger Screens */
+        @media screen and (min-width: 768px) {
+            .header img {
+                width: 350px; /* Adjust the width for larger screens */
+            }
+
+            .header {
+                padding: 20px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        loadUser(localStorage.getItem('currentEmail'));
+            loadCurrentAccount(localStorage.getItem('currentLogIn'))
+            loadData();
+      });
+    </script>
+  
+  <div class="header">
+    <div class="header-logo">
+        <img src="images/home-logo.png" alt="Your Logo">
+    </div>
+    <div class="header-button-container">
+        <button class="header-button" onclick="redirectToHomePage()">Home</button>
+        <button class="header-button" onclick="redirectToReservationsPage()">Reservations</button>
+
+        <div class="profile-image-container">
+            <img class="header-profile-image" src="" alt="User Profile Image">
+                    <div class="profile-menu">
+                        <p onclick="viewProfile()">View User Profile</p>
+                        <p onclick="logout()">Logout</p>
+                    </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="errorNotification" class="error-notification"></div>
+
+<div id="reservationEditPopup">
+    <div class="popup-content">
+        <h2>Edit Reservation</h2>
+        <form id="editReservationForm">
+            <label for="editResDate" class="dropdown-label">Edit Date:</label>
+            <select id="editResDate" name="editResDate" class="dropdown-menu"></select><br><br>
+
+            <label for="editResStartTime" class="dropdown-label">Edit Start Time:</label>
+            <select id="editResStartTime" name="editResStartTime" class="dropdown-menu"></select><br><br>
+
+            <label for="editResEndTime" class="dropdown-label">Edit End Time:</label>
+            <select id="editResEndTime" name="editResEndTime" class="dropdown-menu"></select><br><br>
+
+            <label for="editResLab" class="dropdown-label">Edit Lab:</label>
+            <select id="editResLab" name="editResLab" class="dropdown-menu">
+                <option value="G301">G301</option>
+                <option value="G302">G302</option>
+                <option value="G303">G303</option>
+            </select><br><br>
+
+            <label for="editResAnonymousStatus" style = "font-size: 18px">Edit Anonymous Status:</label>
+            <input type="checkbox" id="editResAnonymousStatus" name="editResAnonymousStatus"><br><br>
+
+            <div class="popup-buttons">
+                <button type="button" class="confirm" id="confirmReservationEdit">Confirm</button>
+                <button type="button" class="cancel" id="cancelReservationEdit">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+    
+<div style="text-align: center; margin-top: 20px; margin-bottom: 25px; font-size: 40px; font-weight: bold; color: #fff; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);">
+    <span style="background-image: linear-gradient(to right, #87ff5f, #d4ff71); 
+                 color: transparent;
+                 -webkit-background-clip: text;
+                 background-clip: text;
+                 display: inline-block;
+                 transition: transform 0.3s ease-in-out;">Your Reservations</span>
+</div>
+
+    <script>
+
+      async function fillReservationList() {
+    try {
+        const response = await fetch('http://localhost:3000/reservationList');
+        const data = await response.json();
+     // Check if data is fetched correctly
+        return data;
+    } catch (error) {
+        console.error('Error fetching reservations:', error);
+        return []; // Return an empty array or appropriate default value in case of an error
+    }
+}
+
+const dateSelect = document.getElementById('editResDate');
+for (let i = 0; i < 8; i++) {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + i);
+
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    const option = document.createElement('option');
+    option.value = `${year}-${month}-${day}`;
+    option.text = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    dateSelect.appendChild(option);
+
+}
+
+    // Populate start time dropdown
+    const startTimeSelect = document.getElementById('editResStartTime');
+    for (let hour = 7; hour < 19; hour++) {
+        for (let minute = 0; minute < 60; minute += 30) {
+            const option = document.createElement('option');
+            const displayHour = hour > 12 ? hour - 12 : hour;
+            const displayMinute = minute === 0 ? '00' : minute;
+            const displayPeriod = hour >= 12 ? 'PM' : 'AM';
+            option.value = `${displayHour}:${displayMinute} ${displayPeriod}`;
+            option.text = `${displayHour}:${displayMinute} ${displayPeriod}`;
+            startTimeSelect.appendChild(option);
+        }
+    }
+
+    // Populate end time dropdown
+    const endTimeSelect = document.getElementById('editResEndTime');
+    for (let hour = 7, minute = 30; hour < 19 || (hour === 19 && minute === 0);) {
+        const displayHour = hour > 12 ? hour - 12 : hour;
+        const displayMinute = minute === 0 ? '00' : minute;
+        const displayPeriod = hour >= 12 ? 'PM' : 'AM';
+
+        const option = document.createElement('option');
+        option.value = `${displayHour}:${displayMinute} ${displayPeriod}`;
+        option.text = `${displayHour}:${displayMinute} ${displayPeriod}`;
+        endTimeSelect.appendChild(option);
+
+        minute += 30;
+        if (minute === 60) {
+            minute = 0;
+            hour++;
+        }
+    }
+
+
+// Call the function and handle the returned Promise
+fillReservationList()
+    .then(reservationList => {
+        var type = localStorage.getItem('currentType');
+
+    if (type === 'Student') {
+        displayReservations(reservationList);
+    } else{
+        labTechDisplay(reservationList);
+    }
+       
+    });
+
+
+    function displayReservations(reservationList) {
+    const accountInUse = localStorage.getItem('currentLogIn');
+    const filteredReservations = reservationList.filter(function (reservation) {
+        return reservation.owner === accountInUse;
+    });
+
+    let groupedReservations = {};
+    filteredReservations.forEach(function (reservation) {
+        if (!groupedReservations[reservation.reservationNum]) {
+            groupedReservations[reservation.reservationNum] = [];
+        }
+        groupedReservations[reservation.reservationNum].push(reservation);
+    });
+
+    var tableContainer = document.getElementById("reservationTableContainer");
+    var tableHTML = "<table border='1'>";
+    tableHTML += "<tr><th>Reservation Number</th><th>Date</th><th>Time</th><th>Lab</th><th>Seat Number</th><th>Anonymous</th><th>Booking Date</th><th>Booking Time</th><th>Action</th></tr>";
+
+    let rowColorCounter = 0; // Counter for alternating row colors
+
+    for (const reservationNum in groupedReservations) {
+        if (groupedReservations.hasOwnProperty(reservationNum)) {
+            const reservations = groupedReservations[reservationNum];
+            const count = reservations.length;
+
+            reservations.forEach(function (reservation, index) {
+                if (index === 0) {
+                    rowColorCounter++; // Increment the counter for each reservation number
+                    const rowClass = 'reservation-row-' + (rowColorCounter % 2 === 0 ? 'even' : 'odd');
+
+                    tableHTML += "<tr class='" + rowClass + "'>";
+                    tableHTML += "<td rowspan='" + count + "'>" + reservationNum + "</td>";
+                    tableHTML += "<td rowspan='" + count + "'>" + reservation.date + "</td>";
+                    tableHTML += "<td rowspan='" + count + "'>" + reservation.startTime + " - " + reservation.endTime + "</td>";
+                    tableHTML += "<td rowspan='" + count + "'>" + reservation.lab + "</td>";
+                } else {
+                    tableHTML += "<tr>";
+                }
+
+                tableHTML += "<td>" + reservation.seatNum + "</td>";
+
+                if (index === 0) {
+                    tableHTML += "<td rowspan='" + count + "'>" + (reservation.anonymous === 'yes' ? 'Yes' : 'No') + "</td>";
+                    tableHTML += "<td rowspan='" + count + "'>" + reservation.bookingDate + "</td>";
+                    tableHTML += "<td rowspan='" + count + "'>" + reservation.bookingTime + "</td>";
+                }
+
+                if (index === 0) {
+                    tableHTML += "<td rowspan='" + count + "'";
+                    
+                    if (reservation.owner === accountInUse) {
+                        tableHTML += "><button class='edit-btn' onclick='editReservation(" + reservation.reservationNum + ")'>Edit</button></td>";
+                    } else {
+                        tableHTML += "></td>";
+                    }
+                }
+
+                tableHTML += "</tr>";
+            });
+        }
+    }
+
+    tableHTML += "</table>";
+    tableContainer.innerHTML = tableHTML;
+}
+
+function labTechDisplay(reservationList) {
+    // Sort the reservations by lab
+    reservationList.sort((a, b) => a.lab.localeCompare(b.lab));
+
+    const tableContainer = document.getElementById("reservationTableContainer");
+    let tableHTML = "<table border='1'>";
+    tableHTML += "<tr><th>Reservation Number</th><th>Date</th><th>Time</th><th>Lab</th><th>Seat Number</th><th>Anonymous</th><th>Booking Date</th><th>Booking Time</th><th>Owner</th><th>Action</th></tr>";
+
+    let currentLab = null;
+
+    reservationList.forEach(function (reservation, index) {
+        // Check if it's a new lab
+        if (reservation.lab !== currentLab) {
+            currentLab = reservation.lab;
+            // Add a row for the lab name with a darker background color
+            tableHTML += "<tr><td colspan='10' style='font-weight: bold; text-align: center; background-color: rgba(1, 104, 54, 0.7);'>" + currentLab + "</td></tr>";
+        }
+
+        tableHTML += "<tr>";
+        tableHTML += "<td>" + reservation.reservationNum + "</td>";
+        tableHTML += "<td>" + reservation.date + "</td>";
+        tableHTML += "<td>" + reservation.startTime + " - " + reservation.endTime + "</td>";
+        tableHTML += "<td>" + reservation.lab + "</td>";
+        tableHTML += "<td>" + reservation.seatNum + "</td>";
+        tableHTML += "<td>" + (reservation.anonymous === 'yes' ? 'Yes' : 'No') + "</td>";
+        tableHTML += "<td>" + reservation.bookingDate + "</td>";
+        tableHTML += "<td>" + reservation.bookingTime + "</td>";
+        tableHTML += "<td>" + reservation.owner + "</td>";
+        tableHTML += "<td><button class='edit-btn' onclick='editReservation(" + reservation.reservationNum + ")'>Edit</button></td>";
+        tableHTML += "</tr>";
+    });
+
+    tableHTML += "</table>";
+    tableContainer.innerHTML = tableHTML;
+}
+
+function formatDate(dateString) {
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    // Parse the input date string
+    const parsedDate = new Date(dateString);
+
+    // Extract year, month, and day components
+    const year = parsedDate.getFullYear();
+    const monthIndex = parsedDate.getMonth();
+    const day = parsedDate.getDate();
+
+    // Format month with leading zero if needed
+    const month = (monthIndex + 1).toString().padStart(2, '0');
+
+    // Construct the desired date string in YYYY-MM-DD format
+    const formattedDate = `${year}-${month}-${day.toString().padStart(2, '0')}`;
+
+    return formattedDate;
+}
+
+let confirmButtonClickHandler = null;
+
+async function editReservation(reservationNum) {
+
+    try {
+        console.log("MARKER");
+        console.log(reservationNum);
+        const popup = document.getElementById('reservationEditPopup');
+        popup.style.display = 'flex';
+        const reservationList = await fillReservationList();
+
+        // Example: Retrieving reservation details based on reservationNum
+        const reservation = reservationList.find(reservation => reservation.reservationNum === reservationNum);
+
+        // Set reservation date in the dropdown
+        const dateSelect = document.getElementById('editResDate');
+        const formattedReservationDate = formatDate(reservation.date);
+
+
+        // Loop through the options and set the selected property
+        for (let i = 0; i < dateSelect.options.length; i++) {
+            if (dateSelect.options[i].value === formattedReservationDate) {
+                dateSelect.options[i].selected = true;
+                break; // Exit the loop once found
+            }
+        }
+
+        // Populate other fields in the edit form
+        document.getElementById('editResStartTime').value = reservation.startTime;
+        document.getElementById('editResEndTime').value = reservation.endTime;
+        document.getElementById('editResLab').value = reservation.lab;
+
+        // Set the anonymous status checkbox
+        document.getElementById('editResAnonymousStatus').checked = reservation.anonymous === 'yes';
+
+       
+       
+        // Add event listeners to the buttons in the popup
+        const confirmBtn = document.getElementById('confirmReservationEdit');
+        const cancelBtn = document.getElementById('cancelReservationEdit');
+
+        
+
+        // Add event listeners
+        if (confirmButtonClickHandler !== null) {
+            confirmBtn.removeEventListener('click', confirmButtonClickHandler);
+        }
+
+        confirmButtonClickHandler = async () => {
+            const startTime = document.getElementById('editResStartTime').value;
+    const endTime = document.getElementById('editResEndTime').value;
+
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const newDate = new Date(document.getElementById('editResDate').value).toLocaleDateString('en-US', options);
+
+    const lab = document.getElementById('editResLab').value;
+
+    const anonymous = document.getElementById('editResAnonymousStatus').checked ? "yes" : "no";
+
+    // Validating availability before confirming edit
+   
+        // Proceed with confirmation
+        confirmEdit(reservationNum, startTime, endTime, newDate, lab, anonymous);
+        // Handle cancellation or show a message indicating validation failure
+    
+};
+
+
+
+
+confirmBtn.addEventListener('click', confirmButtonClickHandler);
+
+        cancelBtn.addEventListener('click', cancelEdit);
+
+        let prevStartTime = reservation.startTime;
+        let prevEndTime = reservation.endTime;
+
+        const editStartTimeSelect = document.getElementById('editResStartTime');
+        const editEndTimeSelect = document.getElementById('editResEndTime');
+
+        // Attach event listeners after populating the reservation details
+        editStartTimeSelect.addEventListener('change', validateTimeSelection);
+        editEndTimeSelect.addEventListener('change', validateTimeSelection);
+
+        
+
+
+        async function confirmEdit(reservationNum, startTime, endTime, newDate, lab, anonymous) {
+
+            valid = await validateAvailability(reservationNum);
+            if (valid === "false"){
+                return;
+            }
+    try {
+        const requestBody = {
+            reservationNum,
+            startTime,
+            endTime,
+            newDate,
+            lab,
+            anonymous
+        };
+
+        const response = await fetch('http://localhost:3000/updateReservation', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (response.ok) {
+            // Handle success
+            console.log('Reservation handled successfully');
+
+            // Optionally close the popup or perform other actions upon success
+            popup.style.display = 'none';
+
+            // Refresh the reservations table after updating
+            const updatedReservationList = await fillReservationList();
+            var type = localStorage.getItem('currentType');
+
+    if (type === 'Student') {
+        displayReservations(updatedReservationList);
+    } else{
+        labTechDisplay(updatedReservationList);
+    }
+        } else {
+            // Handle failure
+            console.error('Failed to update reservation');
+        }
+    } catch (error) {
+        // Handle error
+        console.error('Error updating reservation:', error);
+    }
+}
+        
+function cancelEdit() {
+            // Logic to cancel the edit operation
+            popup.style.display = 'none';
+        }
+
+function validateTimeSelection() {
+    const startTime = editStartTimeSelect.value;
+    const endTime = editEndTimeSelect.value;
+
+    if (startTime === endTime) {
+        displayErrorMessage("Start and end times cannot be the same.");
+        revertSelection();
+        return;
+    } else {
+        const startDate = convertTimeToDate(startTime);
+        const endDate = convertTimeToDate(endTime);
+
+        if (startDate > endDate) {
+            displayErrorMessage("Start time cannot be after the end time.");
+            revertSelection();
+            return;
+        } else if (endDate < startDate) {
+            displayErrorMessage("End time cannot be before the start time.");
+            revertSelection();
+            return;
+        }
+    }
+
+    prevStartTime = startTime;
+    prevEndTime = endTime;
+}
+
+function validateAvailability(reservationNum) {
+    const selectedLab = document.getElementById('editResLab').value;
+    const selectedDate = document.getElementById('editResDate').value;
+    const convStartTime = convertTimeToDate(document.getElementById('editResStartTime').value);
+    const convEndTime = convertTimeToDate(document.getElementById('editResEndTime').value);
+
+    const reservationStart = convertTimeToDate(reservation.startTime);
+    const reservationEnd = convertTimeToDate(reservation.endTime);
+
+
+   let seatNumberList = [];
+
+
+const seatNumberSearch = reservationList.filter(reservation => reservation.reservationNum === reservationNum);
+
+seatNumberSearch.forEach(entry => {
+    seatNumberList.push(entry.seatNum);
+});
+
+console.log(seatNumberList);
+    const excludeCurrentReservation = reservationList.filter(reservation => reservation.reservationNum !== reservationNum);
+
+    const matchingReservations = excludeCurrentReservation.filter(reservation => {
+        const isSameLab = reservation.lab === selectedLab;
+        const isSameDate = formatDate(reservation.date) === selectedDate;
+
+        const startBeforeEnd = convertTimeToDate(reservation.startTime) <= convEndTime;
+        const endAfterStart = convertTimeToDate(reservation.endTime) >= convStartTime;
+
+        const isOverlapping = (convertTimeToDate(reservation.startTime) >= convStartTime && convertTimeToDate(reservation.startTime) < convEndTime) ||
+            (reservationEnd > convStartTime && reservationEnd <= convEndTime) ||
+            (convertTimeToDate(reservation.startTime) <= convStartTime && convertTimeToDate(reservation.endTime) >= convEndTime);
+
+        let seatNumMatches = false;
+        seatNumberList.forEach(seatNumber => {
+            if (seatNumber === reservation.seatNum) {
+                seatNumMatches = true;
+            }
+        });
+
+        const finalVerdict = isSameLab && isSameDate && (startBeforeEnd && endAfterStart) && isOverlapping && seatNumMatches;
+        return finalVerdict;
+    });
+
+    if (matchingReservations.length !== 0) {
+        displayErrorMessage("That slot is already reserved in your chosen time, date, and lab.");
+        return "false";
+    } else {
+        return "true";
+    }
+}
+
+function displayErrorMessage(message) {
+    const errorNotification = document.getElementById('errorNotification');
+    errorNotification.textContent = message;
+    errorNotification.style.display = 'block';
+
+    setTimeout(() => {
+        errorNotification.style.display = 'none';
+    }, 3000);
+}
+
+function revertSelection() {
+    editStartTimeSelect.value = prevStartTime;
+    editEndTimeSelect.value = prevEndTime;
+}
+    } catch (error) {
+        console.error('Error editing reservation:', error);
+    }
+}
+    </script>
+
+    <div id="reservationTableContainer"></div>
+  </body>
+</html>

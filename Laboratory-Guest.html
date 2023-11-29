@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lab Seat Reservation</title>
+    <link rel="icon" href="images/dlsu-logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        .header {
+            background-color: #242424; /* Graphite-colored background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            width: 200px; /* Adjust the width as needed */
+            margin-left: 20px;
+            height: auto;
+        }
+
+        .header-button-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 40px;
+            margin-left: 550px;
+            gap: 30px;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .header-button:hover {
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid rgba(1, 104, 54, 0.7);
+            transition: background-color 0.2s, color 0.2s, border 0.2s;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/goks-img.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Montserrat', sans-serif; 
+            color: black;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            background-color: rgba(0, 0, 0, 0.5);
+            min-height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .profile-image-container {
+            display: flex;
+            margin-right: 30px;
+            margin-left: 50px;
+            position: relative;
+            width: 60px; /* Set a fixed width for the profile image container */
+            height: 60px; /* Set a fixed height for the profile image container */
+        }
+
+        .profile-image {
+            width: 100%; /* Make the profile image fill the container without stretching */
+            height: 100%; /* Make the profile image fill the container without stretching */
+            border-radius: 50%; /* Make it circular */
+            overflow: hidden;
+            background-color: #0f5132;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-menu {
+            display: none;
+            position: absolute;
+            background-color: #a3a3a3;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            padding: 12px;
+            border-radius: 20px;
+            right: -5px;
+            top: 60px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-menu p {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container .profile-menu p:hover {
+            color: rgba(0, 148, 76, 0.7); /* Change text color on hover */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        .profile-image-container:hover .profile-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(to bottom right, #dedede, #93b1a7); /* Adjust gradient from white (#fff) to gray (#a3a3a3) */
+            animation: fadeDown 0.5s ease; /* Animation */
+        }
+
+        /* UPDATED BUTTONS TO ALL SCREENS */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Move menu upward initially */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Bring menu down to its original position */
+            }
+        }
+
+        
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .label {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            /* background-color: rgba(196, 222, 164, 0.75); */
+            padding: 20px;
+            display: flex; 
+            min-height: 85vh;
+            margin-right: 80px;
+            margin-top: 15px;
+        }
+
+        .classroom {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.65);
+            border-radius: 30px;
+        }
+
+        .seat {
+            width: 153px;
+            height: 123.33px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            filter: brightness(80%);
+            transition: filter 0.3s;
+            position: relative;
+        }
+
+        .seat-number {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px; /* Adjust the font size as needed */
+            color: rgb(131, 131, 131); /* Set the color of the seat number */
+        }
+
+        .seat:hover {
+            filter: brightness(10%);
+        }
+
+        .unoccupiedSeat {
+            background-image: url('images/unoccupiedSeat.png');
+        }
+
+        .hoveredSeat {
+            background-image: url('images/hoveredSeat.png');
+        }
+
+        .occupiedSeat {
+            background-image: url('images/occupiedSeat.png');
+        }
+
+        .ownSeat {
+            background-image: url('images/ownSeat.png');
+        }
+
+        .selectedSeat {
+            background-image: url('images/selectedSeat.png');
+        }
+
+        .reserve-button {
+            position: relative;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 50px;
+            font-size: 18px; /* Increase font size */
+            transition: background-color 0.4s, color 0.4s, border 0.4s; /* Slower transition */
+        }
+
+        .reserve-button:hover {
+            background-color: #45a049; /* Change color on hover */
+        }
+
+        .popup-container {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px;
+            text-align: center;
+        }
+
+        .popup-content h2 {
+            color: #016836;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .popup-content #selectedSeats {
+            font-size: 18px;
+            margin-bottom: 35px;
+        }
+
+        .popup-content label {
+            font-size: 16px;
+            margin-bottom: 35px;
+        }
+
+        .popup-content button {
+            background-color: rgba(1, 104, 54, 0.7);
+            color: #fff;
+            border: 3px solid transparent; /* Add a transparent border */
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif; 
+            margin-top: 35px;
+            margin-bottom: 35px;
+        }
+
+        .popup-content button:hover {
+            background-color: transparent; /* Remove background color */
+            color: #000; /* Set text color to white on hover */
+            border: 3px solid rgba(1, 104, 54, 0.7); /* Add white border on hover */
+            transition: background-color 0.2s, color 0.2s, border 0.2s; /* Add transitions for color and border */
+        }
+
+        .error-notification {
+            position: fixed;
+            top: 425px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 9999;
+        }
+
+        .dropdown-label {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .dropdown-menu {
+            width: 260px;
+            height: 40px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #000; /* Border color */
+            background-color: #fff;
+            border-radius: 8px;
+            color: #000; /* Text color */
+            padding: 8px 12px;
+            outline: none;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        /* Add a hover effect */
+        .dropdown-menu:hover {
+            border-color: #45a049; /* Darker border color on hover */
+        }
+
+        /* Add a focus effect */
+        .dropdown-menu:focus {
+            border-color: #45a049; /* Different border color when focused */
+            color: #000; /* Different text color when focused */
+        }
+
+        .reservation-details {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .reservation-details p {
+            margin: 5px;
+        }
+
+        #reservationTableContainer {
+            color: white;
+            max-width: 80%; /* Set a maximum width for the table */
+            margin: 0 auto; /* Center the table horizontally */
+            min-height: 150vh;
+        }
+
+        table {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            color: white;
+            border: 1px solid #1f1f1f;
+        }
+
+        .reservation-row-odd {
+        background-color: #333; /* Dark gray background for odd reservation rows */
+    }
+
+    .reservation-row-even {
+        background-color: #444; /* Slightly lighter gray for even reservation rows */
+    }
+
+        th {
+            background-color: rgba(1, 104, 54, 0.7); /* Blue background for header */
+        }
+
+        tr {
+            background-color: #333; /* Dark gray background for table rows */
+        }
+        
+
+        tr:hover {
+            background-color: #7b968d; /* Hover effect for rows */
+        }
+
+        .edit-btn, .remove-btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .edit-btn:hover, .remove-btn:hover {
+            background-color: #45a049;
+        }
+
+        .left-container {
+            /* background-color: rgba(255, 255, 255, 0.65); */
+            padding: 20px;
+            width: 40%;
+            height: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            margin-top: 100px;
+            margin-left: 60px;
+            color:white;
+
+            /* Center all items vertically and horizontally */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Adjust h1 styles to align it to the left */
+        .left-container h1 {
+            text-align: left;
+        }
+
+        .left-container-button{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .fascinating-text {
+            text-transform: uppercase;
+            font-size: 36px;
+            font-weight: bold;
+            color: transparent;
+            background: linear-gradient(45deg, #1C9C36, #50B24B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-align: center;
+            padding: 10px;
+            margin: 0 auto;
+            margin-top: -5px;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+
+        .border {
+            border-bottom: 3px solid #016836; /* Change the width of the line */
+            padding-bottom: 7px;
+            width: 80%;
+            margin: 0 auto; /* Center the table horizontally */
+            margin-top: 100px;
+            margin-bottom: 30px;
+        }
+
+        #selectedDateTime {
+            font-size: 16.5px;
+            margin-bottom: 20px;
+            color: white;
+            transition: color 0.3s ease-in-out, font-size 0.3s ease-in-out;
+        }
+
+        .color-transition {
+            color: yellowgreen !important; /* Use !important to override the default color */
+        }
+
+          /* UPDATED CODE FOR MEDIA SCREENS */
+    @media screen and (min-width: 992px) {
+            .header img {
+                width: 350px;
+            }
+
+            .header {   
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-logo">
+            <img src="images/home-logo.png" alt="Your Logo">
+        </div>
+        <div class="header-button-container">
+          <button class="header-button" onclick="logout()">Back</button>
+          <div class="profile-container">
+            <div class="profile-image-container">
+                <img class="profile-image" src="images/Dolphin.png" alt="User Profile Image">
+                </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="left-container">
+            <h1>Select Your Seat</h1>
+    
+            <div class="dropdown-label">Enter Date:</div>
+            <select id="dateSelect" class="dropdown-menu"></select>
+    
+            <div class="dropdown-label">Start Time:</div>
+            <select id="startTimeSelect" class="dropdown-menu"></select>
+
+            <div class="dropdown-label">End Time:</div>
+            <select id="endTimeSelect" class="dropdown-menu"></select>
+    
+            <div id="selectedDateTime"></div>
+            <div class="left-container-button">
+                <button id="reserveButton" class="reserve-button" onclick="openConfirmationBox()">Reserve 0 seat(s)</button>
+                <button id="seeReservationButton" class="reserve-button" onclick="scrollToReservationsSection()">See Reservation</button>
+            </div>
+        </div>
+    
+        <div class="classroom" id="classroom" onclick="updateReserveButton()"></div>
+
+        <div id="errorNotification" class="error-notification"></div>
+
+        <div id="confirmationPopup" class="popup-container">
+            <div class="popup-content">
+                <h2 id="confirmationText">Confirm Reservation</h2>
+                <div id="selectedDateTimeInfo" class="reservation-details">
+                    <p id="selectedLabInfo"></p>
+                    <p id="selectedDateInfo"></p>
+                    <p id="selectedStartTimeInfo"></p>
+                    <p id="selectedEndTimeInfo"></p>
+                </div>
+                <div id="selectedSeats"></div>
+                <div>
+                    <label for="anonymousReservation">Reserve anonymously: </label>
+                    <input type="checkbox" id="anonymousReservation" name="anonymousReservation">
+                </div>
+                <button onclick="openGuestBox()">Confirm</button>
+                <button onclick="closeConfirmationBox()">Cancel</button>
+            </div>
+        </div>
+
+        <div id="guestPopup" class="popup-container">
+            <div class="popup-content">
+                <h2 id="guestText">Registered account needed!</h2>
+                <div id="guestInfo" class="reservation-details">
+                    <p>Sorry, Guest! You need to register first before reserving!</p>
+                </div>
+                <button onclick = "redirectToLoginPage()">Login</button>
+                <button onclick = "redirectToRegisterPage()">Register</button>
+                <button onclick="closeGuest()">Cancel</button>
+            </div>
+        </div>
+
+        
+        
+    </div>
+
+    <div>
+        <section id="reservations">
+            <div class="border"></div>
+            <div style="text-align: center; margin-top: 25px; margin-bottom: 30px; font-size: 40px; font-weight: bold; color: #fff; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);">
+    <span style="background-image: linear-gradient(to right, #87ff5f, #d4ff71); 
+                 color: transparent;
+                 -webkit-background-clip: text;
+                 background-clip: text;
+                 display: inline-block;
+                 transition: transform 0.3s ease-in-out;">RESERVATIONS</span>
+        </div>
+        </section>
+    </div>
+    <script>
+
+// Add the color-transition class after a delay (e.g., 2 seconds)
+setTimeout(function () {
+        document.getElementById('selectedDateTime').classList.add('color-transition');
+    }, 2500); // 2000 milliseconds = 2 seconds
+
+
+function scrollToReservationsSection() {
+    // Find the reservations section by its ID
+    const reservationsSection = document.getElementById('reservations');
+
+    if (reservationsSection) {
+        // Use the scrollIntoView method to scroll to the reservations section
+        reservationsSection.scrollIntoView({ behavior: 'smooth' }); // You can use 'auto' for instant scrolling
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    localStorage.setItem('currentLogIn', "GUEST");
+});
+        
+        const seatTypes = ['unoccupiedSeat', 'hoveredSeat', 'occupiedSeat', 'ownSeat', 'selectedSeat'];
+
+            const currentLab = localStorage.getItem('selectedLab');
+    console.log("Retrieved Selected Lab:", currentLab);
+
+        const currentDate = new Date();
+const currentDateString = currentDate.toISOString().split('T')[0];
+const currentTimeString = `${currentDate.getHours()}:${currentDate.getMinutes() < 10 ? '0' : ''}${currentDate.getMinutes()} ${currentDate.getHours() >= 12 ? 'PM' : 'AM'}`;
+
+var currentEmail;
+
+
+
+function convertTimeToDate(timeString) {
+    const [time, period] = timeString.split(' ');
+    let [hours, minutes] = time.split(':');
+    hours = parseInt(hours);
+    minutes = parseInt(minutes);
+
+    if (period === 'PM' && hours < 12) {
+        hours += 12;
+    } else if (period === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    const date = new Date();
+    date.setHours(hours, minutes, 0); // Set hours and minutes
+
+    return date;
+}
+
+const dateSelect = document.getElementById('dateSelect');
+    const startTimeSelect = document.getElementById('startTimeSelect');
+    const endTimeSelect = document.getElementById('endTimeSelect');
+
+    // Populate date dropdown
+    for (let i = 0; i < 8; i++) {
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + i);
+        const option = document.createElement('option');
+        option.value = currentDate.toISOString().split('T')[0];
+        option.text = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        dateSelect.appendChild(option);
+    }
+
+    // Populate start time dropdown
+    for (let hour = 7; hour < 19; hour++) {
+        for (let minute = 0; minute < 60; minute += 30) {
+            const option = document.createElement('option');
+            const displayHour = hour > 12 ? hour - 12 : hour;
+            const displayMinute = minute === 0 ? '00' : minute;
+            const displayPeriod = hour >= 12 ? 'PM' : 'AM';
+            option.value = `${displayHour}:${displayMinute} ${displayPeriod}`;
+            option.text = `${displayHour}:${displayMinute} ${displayPeriod}`;
+            startTimeSelect.appendChild(option);
+        }
+    }
+
+// Populate end time dropdown
+for (let hour = 7, minute = 30; hour < 19 || (hour === 19 && minute === 0); ) {
+    const displayHour = hour > 12 ? hour - 12 : hour;
+    const displayMinute = minute === 0 ? '00' : minute;
+    const displayPeriod = hour >= 12 ? 'PM' : 'AM';
+
+    const option = document.createElement('option');
+    option.value = `${displayHour}:${displayMinute} ${displayPeriod}`;
+    option.text = `${displayHour}:${displayMinute} ${displayPeriod}`;
+    endTimeSelect.appendChild(option);
+
+    minute += 30;
+    if (minute === 60) {
+        minute = 0;
+        hour++;
+    }
+}
+
+function createSeatElement(seatData, reservationList) {
+    const seat = document.createElement('div');
+    const seatStatus = seatData.status;
+    const seatNum = seatData.seatNum;
+
+    let seatType;
+    if (seatStatus === 'unoccupied') {
+        seatType = 'unoccupiedSeat';
+    } else if (seatStatus === 'occupied') {
+        const matchedReservation = reservationList.find(reservation => reservation.owner === localStorage.getItem('currentLogIn') && reservation.seatNum === seatNum);
+
+        seatType = matchedReservation ? 'ownSeat' : 'occupiedSeat';
+    }
+
+    seat.classList.add('seat', seatType);
+    seat.dataset.seatNum = seatNum;
+
+    // Add seat number in the center of the seat
+    const seatNumber = document.createElement('div');
+    seatNumber.classList.add('seat-number');
+    seatNumber.textContent = seatNum;
+    seat.appendChild(seatNumber);
+
+    seat.addEventListener('click', handleSeatClick);
+
+    seat.addEventListener('mouseleave', function () {
+        if (!seat.classList.contains('selectedSeat')) {
+            seat.style.backgroundImage = `url('images/${seatType}.png')`;
+        }
+    });
+
+    return seat;
+}
+
+
+var labSeats = [];
+
+function resetSeats(labSeats, classroomElement) {
+    // Clear the labSeats array
+    labSeats.length = 0;
+
+    // Remove all child elements from the classroomElement div
+    while (classroomElement.firstChild) {
+        classroomElement.removeChild(classroomElement.firstChild);
+    }
+}
+
+let prevStartTime = startTimeSelect.value;
+let prevEndTime = endTimeSelect.value;
+
+function updateSelectedDateTime(labSeats, reservationList, classroomElement) {
+    const selectedDate = dateSelected.options[dateSelect.selectedIndex].text;
+    const selectedStartTime = startTimeSelected.options[startTimeSelected.selectedIndex].text;
+    const selectedEndTime = endTimeSelected.options[endTimeSelected.selectedIndex].text;
+    const selectedLab = localStorage.getItem('selectedLab');
+
+    selectedDateTimeDiv.textContent = ` ${selectedLab} Reservations from ${selectedDate}, ${selectedStartTime} to ${selectedEndTime}`;
+
+
+    resetSeats(labSeats, classroomElement);
+    labSeats = [];
+    for (let i = 1; i <= 25; i++) {
+            let seatStatus = 'unoccupied';
+            for (let j = 0; j < reservationList.length; j++) {
+                
+                const reservation = reservationList[j];
+                const reservationStart = convertTimeToDate(reservation.startTime);
+                const reservationEnd = convertTimeToDate(reservation.endTime);
+
+                const convStartTime = convertTimeToDate(selectedStartTime);
+                const convEndTime = convertTimeToDate(selectedEndTime);
+
+                if (reservation.lab === selectedLab && reservation.seatNum === i && reservation.date === selectedDate &&
+                    ((reservationStart >= convStartTime && reservationStart < convEndTime) ||
+                    (reservationEnd > convStartTime && reservationEnd <= convEndTime) ||
+                    (reservationStart <= convStartTime && reservationEnd >= convEndTime))) {
+                        console.log("yes");
+                    seatStatus = 'occupied';
+                    break;
+                }
+            }
+            labSeats.push({ seatNum: i, status: seatStatus });
+        }
+
+    classroomElement.innerHTML = '';
+    for (let i = 0; i < labSeats.length; i++) {
+        const seatData = labSeats[i];
+        const seat = createSeatElement(seatData, reservationList);
+        classroomElement.appendChild(seat);
+    }
+
+    const reserveButton = document.getElementById('reserveButton');
+    reserveButton.textContent = 'Reserve 0 seat(s)';
+
+    prevStartTime = startTimeSelect.value;
+    prevEndTime = endTimeSelect.value;
+}
+
+function validateTimeSelection() {
+    const startTime = startTimeSelect.value;
+    const endTime = endTimeSelect.value;
+
+    if (startTime === endTime) {
+        const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "Start and end times cannot be the same.";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000);
+        revertSelection();
+        return;
+    } else {
+        const startDate = convertTimeToDate(startTime);
+        const endDate = convertTimeToDate(endTime);
+
+        console.log(startDate);
+        console.log(endDate);
+
+        if (startDate > endDate) {
+            const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "Start time cannot be after the end time.";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000);
+        revertSelection();
+        return;
+        } else if (endDate < startDate) {
+            const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "End time cannot be before the start time.";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000);
+        revertSelection();
+        return;
+        }
+    }
+}
+
+function revertSelection() {
+    startTimeSelect.value = prevStartTime;
+    endTimeSelect.value = prevEndTime;
+}
+
+function displayReservations(reservationList) {
+    const accountInUse = localStorage.getItem('currentLogIn');
+    const selectedLab = localStorage.getItem('selectedLab');
+    const selectedDate = dateSelected.options[dateSelect.selectedIndex].text;
+    const selectedStartTime = startTimeSelected.options[startTimeSelect.selectedIndex].text;
+    const selectedEndTime = endTimeSelected.options[endTimeSelect.selectedIndex].text;
+    const startDateTime = convertTimeToDate(selectedStartTime);
+    const endDateTime = convertTimeToDate(selectedEndTime);
+
+    const filteredReservations = reservationList.filter(reservation =>
+        reservation.lab === selectedLab &&
+        reservation.date === selectedDate &&
+        ((convertTimeToDate(reservation.startTime) >= startDateTime && convertTimeToDate(reservation.startTime) < endDateTime) ||
+            (convertTimeToDate(reservation.endTime) > startDateTime && convertTimeToDate(reservation.endTime) <= endDateTime) ||
+            (convertTimeToDate(reservation.startTime) <= startDateTime && convertTimeToDate(reservation.endTime) >= endDateTime))
+    );
+
+    var tableContainer = document.getElementById("reservationTableContainer");
+    // Clearing tableContainer
+    tableContainer.innerHTML = '';
+    var tableHTML = "<table border='1'>";
+    tableHTML += "<tr><th>Reservation Number</th><th>Seat Number</th><th>Start Time</th><th>End Time</th><th>Owner</th><th>Booking Date</th><th>Booking Time</th></tr>";
+
+    let reservationsGroupedByNum = {};
+
+    filteredReservations.forEach(function (reservation) {
+        if (!reservationsGroupedByNum[reservation.reservationNum]) {
+            reservationsGroupedByNum[reservation.reservationNum] = [];
+        }
+        reservationsGroupedByNum[reservation.reservationNum].push(reservation);
+    });
+
+    Object.keys(reservationsGroupedByNum).forEach(function (reservationNum) {
+        const reservations = reservationsGroupedByNum[reservationNum];
+        const count = reservations.length;
+
+        reservations.forEach(function (reservation, index) {
+            if (index === 0) {
+                tableHTML += "<tr>";
+                tableHTML += "<td rowspan='" + count + "'>" + reservationNum + "</td>";
+            }
+
+            tableHTML += "<td>" + reservation.seatNum + "</td>";
+
+            if (index === 0) {
+                tableHTML += "<td rowspan='" + count + "'>" + reservation.startTime + "</td>";
+                tableHTML += "<td rowspan='" + count + "'>" + reservation.endTime + "</td>";
+
+                if (reservation.owner === accountInUse) {
+                    tableHTML += "<td rowspan='" + count + "'>You</td>";
+                } else if (reservation.anonymous === 'yes') {
+                    tableHTML += "<td rowspan='" + count + "'>Anonymous</td>";
+                } else {
+                    tableHTML += "<td rowspan='" + count + "'><a''>" + reservation.owner + "</a></td>";
+                }
+                tableHTML += "<td rowspan='" + count + "'>" + reservation.bookingDate + "</td>";
+                tableHTML += "<td rowspan='" + count + "'>" + reservation.bookingTime + "</td>";
+            }
+
+            tableHTML += "</tr>";
+        });
+    });
+
+    tableHTML += "</table>";
+    tableContainer.innerHTML = tableHTML;
+}
+
+async function fillReservationList() {
+    try {
+        const response = await fetch('http://localhost:3000/reservationList');
+        const data = await response.json();
+        console.log(data); // Check if data is fetched correctly
+        return data;
+    } catch (error) {
+        console.error('Error fetching reservations:', error);
+        return []; // Return an empty array or appropriate default value in case of an error
+    }
+}
+
+
+// Call the function and handle the returned Promise
+fillReservationList()
+    .then(reservationList => {
+        // Use reservationList here or pass it to another function
+        console.log(reservationList);
+        const startTime = document.getElementById('startTimeSelect').options[startTimeSelect.selectedIndex].text;
+        const endTime = document.getElementById('endTimeSelect').options[endTimeSelect.selectedIndex].text;
+        const dateSelected = document.getElementById('dateSelect').options[dateSelect.selectedIndex].text;
+
+        // Convert string times to Date objects
+        const startDateTime = convertTimeToDate(startTime);
+        const endDateTime = convertTimeToDate(endTime);
+
+        console.log(startDateTime); // Check if the date is parsed correctly
+        console.log(endDateTime); // Check if the date is parsed correctly
+
+
+        for (let i = 1; i <= 25; i++) {
+            let seatStatus = 'unoccupied';
+            for (let j = 0; j < reservationList.length; j++) {
+                const reservation = reservationList[j];
+                const reservationStart = convertTimeToDate(reservation.startTime);
+                const reservationEnd = convertTimeToDate(reservation.endTime);
+
+                if (reservation.lab === currentLab && reservation.seatNum === i && reservation.date === dateSelected &&
+                    ((reservationStart >= startDateTime && reservationStart < endDateTime) ||
+                    (reservationEnd > startDateTime && reservationEnd <= endDateTime) ||
+                    (reservationStart <= startDateTime && reservationEnd >= endDateTime))) {
+                        console.log("yes");
+                    seatStatus = 'occupied';
+                    break;
+                }
+            }
+            labSeats.push({ seatNum: i, status: seatStatus });
+        }
+
+         // Generate seats dynamically based on labSeats array
+         var classroomElement = document.getElementById('classroom');
+        for (let i = 0; i < labSeats.length; i++) {
+            const seatData = labSeats[i];
+            const seat = createSeatElement(seatData, reservationList);
+            classroomElement.appendChild(seat);
+        }
+
+    displayReservations(reservationList);
+    updateSelectedDateTime(labSeats, reservationList, classroomElement);
+
+    
+
+
+
+        startTimeSelect.addEventListener('change', async () => {
+            const updatedReservationList = await fillReservationList();
+            validateTimeSelection();
+            updateSelectedDateTime(labSeats, updatedReservationList, classroomElement);
+            displayReservations(updatedReservationList);
+    });
+
+
+    endTimeSelect.addEventListener('change', async () => {
+        const updatedReservationList = await fillReservationList();
+        validateTimeSelection();
+        updateSelectedDateTime(labSeats, updatedReservationList, classroomElement);
+        displayReservations(updatedReservationList);
+    });
+
+
+    dateSelect.addEventListener('change', async () => {
+        const updatedReservationList = await fillReservationList();
+    updateSelectedDateTime(labSeats, updatedReservationList, classroomElement);
+    displayReservations(updatedReservationList);
+    });
+    });
+
+   
+
+    function showErrorNotification(labSeats) {
+            const errorNotification = document.getElementById('errorNotification');
+            errorNotification.textContent = "You cannot select occupied seats!";
+            errorNotification.style.display = 'block';
+
+            setTimeout(() => {
+                errorNotification.style.display = 'none';
+            }, 3000); // Hide the error notification after 3 seconds
+        }
+
+        // Function to handle seat click
+        function handleSeatClick(event) {
+            
+        const clickedSeat = event.target;
+        const seatNum = parseInt(clickedSeat.dataset.seatNum);
+
+
+        if (clickedSeat.classList.contains('occupiedSeat') || clickedSeat.classList.contains('ownSeat')) {
+                showErrorNotification();
+                return;
+        }
+
+
+        if (clickedSeat.classList.contains('selectedSeat')) {
+            clickedSeat.classList.remove('selectedSeat');
+            const seatType = clickedSeat.classList[1]; // Get the class representing the seat type
+            clickedSeat.style.backgroundImage = `url('images/${seatType}.png')`; // Reset the background image
+
+            // Update the labSeats array for deselection
+            for (let i = 0; i < labSeats.length; i++) {
+                if (labSeats[i].seatNum === seatNum) {
+                    labSeats[i].status = seatType;
+                    break;
+                }
+            }
+        } else {
+            clickedSeat.classList.add('selectedSeat');
+            clickedSeat.style.backgroundImage = "url('images/selectedSeat.png')"; 
+
+            // Update the labSeats array for selection
+            for (let i = 0; i < labSeats.length; i++) {
+                if (labSeats[i].seatNum === seatNum) {
+                    labSeats[i].status = 'selected';
+                    break;
+                }
+            }
+        }
+        console.log(labSeats); // Check the updated array in the console
+    }
+    
+       
+
+        function updateReserveButton() {
+            const selectedSeats = document.querySelectorAll('.selectedSeat');
+            const reserveButton = document.getElementById('reserveButton');
+            reserveButton.textContent = `Reserve ${selectedSeats.length} seat(s)`;
+        }
+
+
+   
+
+        function openConfirmationBox() {
+    const startTimeSelected = document.getElementById('startTimeSelect').options[startTimeSelect.selectedIndex].text;
+    const endTimeSelected = document.getElementById('endTimeSelect').options[endTimeSelect.selectedIndex].text;
+    const selectedSeats = document.querySelectorAll('.selectedSeat');
+    const seatNumbers = [];
+    selectedSeats.forEach(seat => {
+        seatNumbers.push(seat.dataset.seatNum);
+    });
+
+    if (seatNumbers.length === 0) {
+        const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "Can't do that yet! Select a seat first.";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000); // Hide the error notification after 3 seconds
+    } else if (startTimeSelected === endTimeSelected){
+        const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "Your end time cannot be the same as your start time!";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000); // Hide the error notification after 3 seconds
+    } else if (new Date('2000-01-01 ' + startTimeSelected) >= new Date('2000-01-01 ' + endTimeSelected)) {
+        const errorNotification = document.getElementById('errorNotification');
+        errorNotification.textContent = "Your end time should be after your start time!";
+        errorNotification.style.display = 'block';
+
+        setTimeout(() => {
+            errorNotification.style.display = 'none';
+        }, 3000); // Hide the error notification after 3 seconds
+    }
+    else {
+        const confirmationPopup = document.getElementById('confirmationPopup');
+    const selectedSeatsDiv = document.getElementById('selectedSeats');
+    const selectedLab = localStorage.getItem('selectedLab');
+    const dateSelected = document.getElementById('dateSelect').options[dateSelect.selectedIndex].text;
+    
+
+        const confirmationText = document.getElementById('confirmationText');
+        confirmationText.textContent = "Confirm Reservation";
+
+        const selectedDateTimeInfo = document.getElementById('selectedDateTimeInfo');
+        const selectedLabInfo = document.getElementById('selectedLabInfo');
+        selectedLabInfo.textContent = `Lab: ${selectedLab}`;
+
+        const selectedDateInfo = document.getElementById('selectedDateInfo');
+        selectedDateInfo.textContent = `Date: ${dateSelected}`;
+
+        const selectedStartTimeInfo = document.getElementById('selectedStartTimeInfo');
+        selectedStartTimeInfo.textContent = `Start Time: ${startTimeSelected}`;
+
+        const selectedEndTimeInfo = document.getElementById('selectedEndTimeInfo');
+        selectedEndTimeInfo.textContent = `End Time: ${endTimeSelected}`;
+
+        const selectedSeatsText = seatNumbers.join(", ");
+        selectedSeatsDiv.textContent = `Selected Seat Numbers: ${selectedSeatsText}`;
+
+        confirmationPopup.style.display = 'flex';
+    }
+}
+
+
+        function closeConfirmationBox() {
+            const confirmationPopup = document.getElementById('confirmationPopup');
+            confirmationPopup.style.display = 'none';
+        }
+
+        function closeGuest() {
+            const guestPopup = document.getElementById('guestPopup');
+            guestPopup.style.display = 'none';
+        }
+
+        function updateReserveButton() {
+            const selectedSeats = document.querySelectorAll('.selectedSeat');
+            const reserveButton = document.getElementById('reserveButton');
+            reserveButton.textContent = `Reserve ${selectedSeats.length} seat(s)`;
+        }
+     
+        
+const selectedDateTimeDiv = document.getElementById('selectedDateTime');
+const dateSelected = document.getElementById('dateSelect');
+const startTimeSelected = document.getElementById('startTimeSelect');
+const endTimeSelected = document.getElementById('endTimeSelect');
+
+
+function confirmReservation(labSeats, reservationList) {
+    const selectedSeats = document.querySelectorAll('.selectedSeat');
+    const seatNumbers = Array.from(selectedSeats).map(seat => seat.dataset.seatNum);
+
+    const selectedDate = dateSelected.options[dateSelected.selectedIndex].text;
+    const selectedStartTime = startTimeSelected.options[startTimeSelected.selectedIndex].text;
+    const selectedEndTime = endTimeSelected.options[endTimeSelected.selectedIndex].text;
+
+    const isAnonymous = document.getElementById('anonymousReservation').checked;
+    const currOwner = localStorage.getItem('currentLogIn');
+
+    console.log(seatNumbers);
+
+    const reservationData = {
+        date: selectedDate,
+        startTime: selectedStartTime,
+        endTime: selectedEndTime,
+        lab: currentLab,
+        seatNum: seatNumbers,
+        owner: currOwner,
+        anonymous: isAnonymous ? 'yes' : 'no',
+    };
+
+    fetch(`http://localhost:3000/make-reservation`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reservationData),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to make reservation');
+        }
+    })
+    .then(data => {
+        // Assuming data contains the response from the server after successful reservation
+        console.log(reservationList);
+
+        window.location.reload();
+
+    })
+    .catch(error => {
+        // Handle errors here
+        console.error(error);
+    });
+}
+
+function openGuestBox(){
+    closeConfirmationBox();
+    const guestPopup = document.getElementById('guestPopup');
+    guestPopup.style.display = 'flex';
+}
+
+
+
+  
+</script>
+<div id="reservationTableContainer"></div>
+</body>
+
+</html>

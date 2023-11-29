@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/functions.js"></script>
+    <script src="js/script.js"></script>
+    <title>Login</title>
+    <link rel="icon" href="images/dlsu-logo.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Add this to stack logo and form vertically */
+            height: 80vh;
+            animation: slideIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Add animation for initial load */
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .form-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-right: 20px;
+            transition: transform 0.3s ease, width 0.3s ease; /* Add transition property for smooth size change */
+        }
+
+        .form-container.large {
+            transform: scale(1.2); /* Increase scale to zoom in */
+            width: 400px; /* Make it larger when credentials are being input */
+        }
+
+        .logo-container {
+            text-align: center;
+            width: 130px;
+            margin-right: 75px;
+            margin-top: 50px;
+            margin-bottom: 40px; /* Add margin to separate logo and form */
+            transition: margin-top 0.3s ease; /* Add transition for smooth logo movement */
+        }   
+
+        .logo-container.zoomed {
+            margin-top: -50px; /* Move the logo up when the form is zoomed */
+        }
+
+        .logo {
+            max-width: 150%;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 10px 0;
+        }
+
+        .input-container label {
+            color: #016836;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .input-container input[type="text"],
+        .input-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #016836;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: #016836;
+            transition: all 0.3s ease; /* Add transition property for smooth size change */
+        }
+
+        .input-container.large input[type="text"],
+        .input-container.large input[type="password"] {
+            padding: 15px; /* Adjust the padding when it goes big */
+        }
+
+        .stay-signed-in-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .stay-signed-in-label {
+            font-size: 12px;
+            color: #016836;
+            margin-right: 10px;
+        }
+
+        .stay-signed-in-checkbox {
+            width: 10px;
+            height: 10px;
+        }
+
+        .error-message {
+            color: red;
+            font-style: italic;
+            text-align: left;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .redirect-link {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .submit-button {
+            background-color: #016836;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #408e68;
+        }
+
+        p, h2 {
+            color: #016836;
+        }
+
+        ::placeholder{
+            font-size: smaller;
+        }
+    </style>
+    <script>
+        // JavaScript to handle input changes and adjust container size
+        document.addEventListener('DOMContentLoaded', function () {
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const formContainer = document.querySelector('.form-container');
+            const logoContainer = document.querySelector('.logo-container');
+
+            emailInput.addEventListener('focus', adjustContainerSize);
+            passwordInput.addEventListener('focus', adjustContainerSize);
+
+            function adjustContainerSize() {
+                formContainer.classList.add('large');
+                logoContainer.classList.add('zoomed');
+            }
+
+            emailInput.addEventListener('blur', function () {
+                if (emailInput.value.trim() === '' && passwordInput.value.trim() === '') {
+                    formContainer.classList.remove('large');
+                    logoContainer.classList.remove('zoomed');
+                }
+            });
+
+            passwordInput.addEventListener('blur', function () {
+                if (emailInput.value.trim() === '' && passwordInput.value.trim() === '') {
+                    formContainer.classList.remove('large');
+                    logoContainer.classList.remove('zoomed');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img class="logo" src="images/dlsu-logo.png" alt="DLSU Logo">
+        </div>
+        <div class="form-container">
+            <h2>Login</h2>
+            <div class="input-container">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="for_example@dlsu.edu.ph">
+            </div>
+            <div class="input-container">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <div class="stay-signed-in-container">
+                <input type="checkbox" id="stay-signed-in" class="stay-signed-in-checkbox">
+                <label class="stay-signed-in-label" for="stay-signed-in">Remember me</label>
+            </div>
+            <p id="error-message" class="error-message"></p>
+            <p class="redirect-link">Don't have an account? <a href="register.html">Register</a></p>
+            <button class="submit-button" onclick="submitLoginForm()">Submit</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- TODO:
+        When the Database is created:
+        1. Validate Email if already registered
+        2. Validate Password if correct
+        3. I already added Remember me button
+        4. Kulang nalang is yung function kapag pinindot, 3 weeks dapat naka login lang sa website-->

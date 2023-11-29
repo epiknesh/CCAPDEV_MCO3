@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "6550e336afdd1c21addb5e55"
+  },
+  "email": "sean_bartolome@dlsu.edu.ph",
+  "password": "seanpogi123",
+  "type": "Student",
+  "image": "images/dp.jpg",
+  "name": "Sean Bartolome",
+  "bio": "Hello! I'm Sean."
+},
+{
+  "_id": {
+    "$oid": "6550e6b3f1dc17e5a7c07bbb"
+  },
+  "email": "norman_salas@dlsu.edu.ph",
+  "password": "normspogi123",
+  "type": "Student",
+  "image": "images/dp4.jpg",
+  "name": "Norman Salas",
+  "bio": "Sup, it's Norms!",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "655105913e48b55eadce0acb"
+  },
+  "email": "andrei_castillo@dlsu.edu.ph",
+  "password": "deipogi123",
+  "type": "Student",
+  "image": "images/dp2.jpg",
+  "name": "Andrei Castillo",
+  "bio": "Sup, it's Dei!",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6559949a13bb3da228133eab"
+  },
+  "email": "labtech@dlsu.edu.ph",
+  "password": "dlsu",
+  "type": "labTechnician",
+  "image": "images/dp5.jpg",
+  "name": null,
+  "bio": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6559abb513bb3da228133edc"
+  },
+  "email": "yuan_patawaran@dlsu.edu.ph",
+  "password": "yuanpogi123",
+  "type": "student",
+  "image": "images/dp3.jpg",
+  "name": "Yuan Patawaran",
+  "bio": "'Ello! I'm Yuan!",
+  "__v": 0
+}]
+
