@@ -1110,7 +1110,7 @@ function displayReservations(reservationList) {
 
 async function fillReservationList() {
     try {
-        const response = await fetch('http://localhost:3000/reservationList');
+        const response = await fetch('https://ccapdevmco3.adaptable.app/reservationList');
         const data = await response.json();
         console.log(data); // Check if data is fetched correctly
         return data;
@@ -1384,7 +1384,7 @@ async function confirmReservation(labSeats, reservationList) {
     };
 
     try {
-        const response = await fetch(`http://localhost:3000/make-reservation`, {
+        const response = await fetch(`https://ccapdevmco3.adaptable.app/make-reservation`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -1585,7 +1585,7 @@ confirmBtn.addEventListener('click', confirmButtonClickHandler);
             anonymous
         };
 
-        const response = await fetch('http://localhost:3000/updateReservation', {
+        const response = await fetch('https://ccapdevmco3.adaptable.app/updateReservation', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -1715,7 +1715,7 @@ function displayErrorMessage(message) {
 
 async function removeReservation(reservationNum) {
   try {
-    const response = await fetch(`http://localhost:3000/reservations/${reservationNum}`, {
+    const response = await fetch(`https://ccapdevmco3.adaptable.app/reservations/${reservationNum}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
