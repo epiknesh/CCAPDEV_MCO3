@@ -500,7 +500,7 @@
 
         async function fillReservationList() {
     try {
-        const response = await fetch('http://localhost:3000/reservationList');
+        const response = await fetch('https://ccapdevmco3.adaptable.app/reservationList');
         const data = await response.json();
         console.log(data); // Check if data is fetched correctly
         return data;
@@ -678,7 +678,7 @@ function updateProfileImageInDatabase(newImagePath) {
     const imagePathWithPrefix = `images/${newImagePath}`;
 
     // Send a PATCH request to the server to update the profile image path
-    fetch(`http://localhost:3000/accounts/${currentEmail}/image`, {
+    fetch(`https://ccapdevmco3.adaptable.app/accounts/${currentEmail}/image`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -717,7 +717,7 @@ async function editName() {
 
       // Send a PATCH request to update the user's name
       const email = localStorage.getItem('currentLogIn');
-      const updateUrl = `http://localhost:3000/accounts/${email}/name`;
+      const updateUrl = `https://ccapdevmco3.adaptable.app/accounts/${email}/name`;
 
       try {
         const response = await fetch(updateUrl, {
@@ -777,7 +777,7 @@ async function editBio() {
 
       // Send a PATCH request to update the user's bio
       const email = localStorage.getItem('currentLogIn');
-      const updateUrl = `http://localhost:3000/accounts/${email}/bio`;
+      const updateUrl = `https://ccapdevmco3.adaptable.app/accounts/${email}/bio`;
 
       try {
         const response = await fetch(updateUrl, {
@@ -835,7 +835,7 @@ async function editBio() {
     const currentEmail = localStorage.getItem('currentLogIn');
 
     // Send a DELETE request to the server to delete the account
-    fetch(`http://localhost:3000/accounts/${currentEmail}`, {
+    fetch(`https://ccapdevmco3.adaptable.app/accounts/${currentEmail}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
