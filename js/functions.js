@@ -71,7 +71,7 @@ function updateCurrentEmail(email) {
 
 async function loadCurrentAccount(email) {
     try {
-        const response = await fetch(`http://localhost:3000/accounts/${email}`);
+        const response = await fetch(`https://ccapdevmco3.adaptable.app/accounts/${email}`);
         
         if (!response.ok) {
             const errorMessage = await response.text();
@@ -92,7 +92,7 @@ async function loadCurrentAccount(email) {
 
 async function loadUser() {
     try {
-        const response = await fetch(`http://localhost:3000/accounts/${localStorage.getItem('currentEmail')}`);
+        const response = await fetch(`https://ccapdevmco3.adaptable.app/accounts/${localStorage.getItem('currentEmail')}`);
         console.log(response);  // Log the entire response object
 
         if (!response.ok) {
@@ -117,7 +117,7 @@ async function loadUser() {
 
 async function loadOtherUser() {
     try {
-        const response = await fetch(`http://localhost:3000/accounts/${localStorage.getItem('otherUserEmail')}`);
+        const response = await fetch(`https://ccapdevmco3.adaptable.app/accounts/${localStorage.getItem('otherUserEmail')}`);
         console.log(response);  // Log the entire response object
 
         if (!response.ok) {
@@ -207,7 +207,7 @@ async function submitLoginForm() {
     var errorMessage = document.getElementById('error-message');
 
     try {
-        const response = await fetch('http://localhost:3000/login', {
+        const response = await fetch('https://ccapdevmco3.adaptable.app/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -243,7 +243,7 @@ function submitRegisterForm() {
     var errorMessage = document.getElementById('error-message');
 
     // Make a POST request to the server to register the new account
-    fetch('http://localhost:3000/register', {
+    fetch('https://ccapdevmco3.adaptable.app/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
