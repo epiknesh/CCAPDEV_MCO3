@@ -519,12 +519,16 @@ app.listen(3000, "localhost", () => {
       .then(() => {
         console.log("Connected to MongoDB Atlas");
       
-        // Start your server after connecting to the database
-        
+        // Start the server after connecting to the database
+        const server = app.listen(process.env.SERVER_PORT || 3000, () => {
+          console.log(`Server started on port ${process.env.SERVER_PORT || 3000}`);
+        });
       
         // Other route handlers and application logic...
+      
       })
       .catch((error) => {
         console.error("Error connecting to MongoDB Atlas:", error);
-      });;
+      });
+      
 });
