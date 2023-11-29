@@ -29,7 +29,21 @@ fs.readFile('./model/DB.accounts.json', 'utf8', async (err, data) => {
 
     try {
         // Connect to MongoDB
-        await mongoose.connect(process.env.MONGODB_URI, { dbName: process.env.DB_NAME });
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            dbName: process.env.DB_NAME
+          })
+          .then(() => {
+            console.log("Connected to MongoDB Atlas");
+          
+            // Start your server after connecting to the database
+ 
+            // Other route handlers and application logic...
+          })
+          .catch((error) => {
+            console.error("Error connecting to MongoDB Atlas:", error);
+          });;
     
         // Check if the Account collection is empty
         const accountCount = await Account.countDocuments();
@@ -69,7 +83,21 @@ fs.readFile('./model/DB.reservations.json', 'utf8', async (err, data) => {
 
     try {
         // Connect to MongoDB
-        await mongoose.connect(process.env.MONGODB_URI, { dbName: process.env.DB_NAME });
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            dbName: process.env.DB_NAME
+          })
+          .then(() => {
+            console.log("Connected to MongoDB Atlas");
+          
+            // Start your server after connecting to the database
+         
+            // Other route handlers and application logic...
+          })
+          .catch((error) => {
+            console.error("Error connecting to MongoDB Atlas:", error);
+          });;
     
         const reservationCount = await Reservation.countDocuments();
     
@@ -483,5 +511,20 @@ app.get("/", (req, res) =>{
 app.listen(3000, "localhost", () => {
     console.log("Server started at port 3000");
     console.log(process.env.MONGODB_URI);
-    mongoose.connect(process.env.MONGODB_URI, {dbName: process.env.DB_NAME});
+    mongoose.connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        dbName: process.env.DB_NAME
+      })
+      .then(() => {
+        console.log("Connected to MongoDB Atlas");
+      
+        // Start your server after connecting to the database
+        
+      
+        // Other route handlers and application logic...
+      })
+      .catch((error) => {
+        console.error("Error connecting to MongoDB Atlas:", error);
+      });;
 });
