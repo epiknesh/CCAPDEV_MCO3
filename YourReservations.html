@@ -478,7 +478,7 @@ for (let i = 0; i < 8; i++) {
 fillReservationList()
     .then(reservationList => {
         var type = localStorage.getItem('currentType');
-      consoole.log(type);
+      console.log(type);
 
     if (type === 'student') {
         displayReservations(reservationList);
