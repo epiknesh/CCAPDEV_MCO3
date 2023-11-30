@@ -479,7 +479,7 @@ fillReservationList()
     .then(reservationList => {
         var type = localStorage.getItem('currentType');
 
-    if (type === 'Student') {
+    if (type === 'student') {
         displayReservations(reservationList);
     } else{
         labTechDisplay(reservationList);
