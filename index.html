@@ -316,11 +316,25 @@
         aboutSection.scrollIntoView({ behavior: 'smooth' });
     });
   // Check if currentLogIn is not null, then redirect
-        const currentLogIn = localStorage.getItem('currentLogIn');
-        if (currentLogIn !== null) {
+      checkCookieAndRedirect();
+       
+    });
+
+    function checkCookieAndRedirect() {
+    const userEmailCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userEmail='));
+
+    if (userEmailCookie) {
+        const userEmail = userEmailCookie.split('=')[1];
+        const expiryDate = new Date(document.cookie.replace(/(?:(?:^|.*;\s*)userEmail\s*=\s*([^;]*).*$)|^.*$/, '$1'));
+
+        if (expiryDate && expiryDate > new Date()) {
+            // Valid cookie exists, proceed to redirect
             redirectToHomePage(); // Call the function to redirect to the home page
         }
-    });
+    }
+}
+
+
 
 function quickLoginStudent(){
     localStorage.setItem('currentEmail', "sean_bartolome@dlsu.edu.ph");
