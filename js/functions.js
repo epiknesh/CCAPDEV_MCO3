@@ -42,7 +42,7 @@ function viewProfile() {
 function logout() {
     localStorage.setItem('currentLogIn', null);
     localStorage.setItem('currentType', null);
-    window.location.href = "Index.html";
+    window.location.href = "index.html";
 }
 
 function studentView() {
