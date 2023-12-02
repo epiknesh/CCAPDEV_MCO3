@@ -207,6 +207,7 @@ async function submitLoginForm() {
     var emailInput = document.getElementById('email').value;
     var passwordInput = document.getElementById('password').value;
     var errorMessage = document.getElementById('error-message');
+    var rememberMeCheckbox = document.getElementById('stay-signed-in').checked;
 
     try {
         const response = await fetch('https://ccapdevmco3.adaptable.app/login', {
@@ -230,6 +231,12 @@ async function submitLoginForm() {
         localStorage.setItem('currentEmail', userData.email);
         localStorage.setItem('currentLogIn', userData.email);
         localStorage.setItem('currentType', userData.type);
+
+        if (rememberMeCheckbox) {
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + 21); // 3 weeks
+            document.cookie = `userEmail=${userData.email};expires=${expiryDate.toUTCString()};path=/`;
+        }
 
         LoginToHomePage();
     } catch (error) {
