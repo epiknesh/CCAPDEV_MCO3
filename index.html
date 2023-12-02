@@ -317,10 +317,12 @@
     });
   // Check if currentLogIn is not null, then redirect
       checkCookieAndRedirect();
+        console.log(outside);
        
     });
 
     function checkCookieAndRedirect() {
+        console.log(cookie time);
     const userEmailCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userEmail='));
         console.log(userEmailCookie);
 
