@@ -317,8 +317,10 @@
         console.log(userEmail);
 
         const cookieParts = userEmailCookie.split('=');
+        console.log(cookieParts);
         if (cookieParts.length === 2) {
             const expiryTimeString = cookieParts[1].trim().split(';')[0];
+            console.log(expiryTimeString);
             const expiryDate = new Date(expiryTimeString);
 
             console.log(expiryDate);
