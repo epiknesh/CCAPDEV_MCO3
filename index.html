@@ -315,7 +315,12 @@
         const aboutSection = document.getElementById('about-us');
         aboutSection.scrollIntoView({ behavior: 'smooth' });
     });
-});
+  // Check if currentLogIn is not null, then redirect
+        const currentLogIn = localStorage.getItem('currentLogIn');
+        if (currentLogIn !== null) {
+            redirectToHomePage(); // Call the function to redirect to the home page
+        }
+    });
 
 function quickLoginStudent(){
     localStorage.setItem('currentEmail', "sean_bartolome@dlsu.edu.ph");
