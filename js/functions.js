@@ -240,6 +240,7 @@ async function submitLoginForm() {
             const expiryDate = new Date();
             expiryDate.setDate(expiryDate.getDate() + 21); // 3 weeks
             document.cookie = `userEmail=${userData.email};expires=${expiryDate.toUTCString()};path=/`;
+            console.log(document.cookie);
         }
 
         LoginToHomePage();
