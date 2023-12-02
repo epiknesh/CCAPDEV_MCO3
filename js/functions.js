@@ -242,6 +242,13 @@ function submitRegisterForm() {
     var accountTypeInput = document.getElementById('accountType').value;
     var errorMessage = document.getElementById('error-message');
 
+    // Validate email format
+    var emailRegex = /^[a-zA-Z0-9._-]+@dlsu\.edu\.ph$/;
+    if (!emailRegex.test(emailInput)) {
+        errorMessage.textContent = "Invalid DLSU Email. It should end in '@dlsu.edu.ph'.";
+        return; // Stop further execution if email is invalid
+    }
+
     // Make a POST request to the server to register the new account
     fetch('https://ccapdevmco3.adaptable.app/register', {
         method: 'POST',
