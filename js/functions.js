@@ -40,8 +40,12 @@ function viewProfile() {
 }
 
 function logout() {
-    localStorage.setItem('currentLogIn', null);
-    localStorage.setItem('currentType', null);
+    localStorage.removeItem('currentLogIn');
+    localStorage.removeItem('currentType');
+
+    // Clear the userEmail cookie by setting its expiration date to a past time
+    document.cookie = 'userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
     window.location.href = "index.html";
 }
 
