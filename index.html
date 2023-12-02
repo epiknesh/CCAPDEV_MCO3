@@ -306,6 +306,33 @@
 </body>
 
 <script>
+
+    function checkCookieAndRedirect() {
+    console.log("Checking cookie...");
+    const userEmailCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userEmail='));
+    console.log(userEmailCookie);
+
+    if (userEmailCookie) {
+        const userEmail = userEmailCookie.split('=')[1];
+        console.log(userEmail);
+
+        const cookieParts = userEmailCookie.split('=');
+        if (cookieParts.length === 2) {
+            const expiryTimeString = cookieParts[1].trim().split(';')[0];
+            const expiryDate = new Date(expiryTimeString);
+
+            console.log(expiryDate);
+            console.log(new Date());
+
+            if (expiryDate && expiryDate > new Date()) {
+                // Valid cookie exists, proceed to redirect
+                console.log("Redirecting to home page...");
+                redirectToHomePage(); // Call the function to redirect to the home page
+            }
+        }
+    }
+}
+    
     document.addEventListener('DOMContentLoaded', function() {
     const aboutButton = document.querySelector('.about-us-button');
 
@@ -321,24 +348,7 @@
        
     });
 
-    function checkCookieAndRedirect() {
-        console.log("cookie time");
-    const userEmailCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userEmail='));
-        console.log(userEmailCookie);
-
-    if (userEmailCookie) {
-        const userEmail = userEmailCookie.split('=')[1];
-        console.log(userEmail);
-        const expiryDate = new Date(document.cookie.replace(/(?:(?:^|.*;\s*)userEmail\s*=\s*([^;]*).*$)|^.*$/, '$1'));
-         console.log(expiryDate);
-
-        console.log(new Date());
-        if (expiryDate && expiryDate > new Date()) {
-            // Valid cookie exists, proceed to redirect
-            redirectToHomePage(); // Call the function to redirect to the home page
-        }
-    }
-}
+  
 
 
 
