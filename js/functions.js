@@ -53,7 +53,7 @@ async function logout() {
       }
 
       // Clear all entries in the sessions database successfully
-      window.location.href = "Index.html"; // Redirect after clearing sessions
+      window.location.href = "index.html"; // Redirect after clearing sessions
     } catch (error) {
       console.error('Error during logout:', error);
       // Handle error or display a message to the user
