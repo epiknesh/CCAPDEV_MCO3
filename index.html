@@ -389,7 +389,7 @@
     
     async function checkSessionAndRedirect() {
   try {
-    const response = await fetch('http://localhost:3000/check-session');
+    const response = await fetch('https://ccapdevmco3.adaptable.app/check-session');
     if (!response.ok) {
       throw new Error('Failed to check session');
     }
@@ -409,7 +409,7 @@
     
 
        // Fetch the account information based on the email
-const accountResponse = await fetch(`http://localhost:3000/accounts/${firstSession.email}`);
+const accountResponse = await fetch(`https://ccapdevmco3.adaptable.app/accounts/${firstSession.email}`);
 if (!accountResponse.ok) {
   throw new Error('Failed to fetch account information');
 }
