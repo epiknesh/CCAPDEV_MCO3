@@ -233,6 +233,7 @@ async function submitLoginForm() {
             body: JSON.stringify({
                 email: emailInput,
                 password: passwordInput,
+                rememberMe: rememberMeCheckbox,
             }),
         });
 
@@ -246,20 +247,13 @@ async function submitLoginForm() {
         localStorage.setItem('currentEmail', userData.email);
         localStorage.setItem('currentLogIn', userData.email);
         localStorage.setItem('currentType', userData.type);
-
-        if (rememberMeCheckbox) {
-            const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + 21); // 3 weeks
-            console.log(expiryDate);
-            document.cookie = `userEmail=${userData.email};expires=${expiryDate.toUTCString()};path=/`;
-            console.log(document.cookie);
-        }
-
+        
         LoginToHomePage();
     } catch (error) {
         errorMessage.textContent = "Log-in failed. Your credentials did not match any of our records.";
     }
 }
+
 
 function submitRegisterForm() {
     var emailInput = document.getElementById('email').value;
