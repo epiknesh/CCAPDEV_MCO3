@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function autoScroll() {
         scrollAmount += scrollSpeed; // Adjust the scroll amount as needed
-        imageScroll.style.transform = `translateX(-${scrollAmount}px)`;
+        imageScroll.style.transform = 'translateX(-' + scrollAmount + 'px)';
 
         if (scrollAmount >= imageWidth * images.length) {
             scrollAmount = 0;
