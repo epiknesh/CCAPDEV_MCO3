@@ -99,6 +99,7 @@
             align-items: left;
             margin-left: 140px;
             margin-top: 40px;
+            margin-bottom: 450px;
             gap: 30px;
         }
 
@@ -126,7 +127,8 @@
         .reservation-text {
             text-align: left;
             margin-left: 140px;
-            margin-top: -150px;
+            /* margin-top: -150px; */
+            margin-top: 200px;
             color: #fff;
             font-size: 30px;
         }
@@ -190,7 +192,6 @@
             padding: 50px;
             background-color: #f9f9f9;
             margin-top: 40px;
-            border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
@@ -230,6 +231,63 @@
             margin-bottom: 20px;
             font-family: 'Modern Clarity', sans-serif;
         }
+
+        .developer-tools-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            margin-bottom: 100px;
+            /* margin-top: -139px; */
+        }
+
+        #developer-tools {
+            padding: 50px;
+            margin-top: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .developer-tools-content {
+            max-width: 500px;
+            text-align: justify;
+            margin-left: 100px;
+            position: relative;
+        }
+
+        .developer-tools-content h2 {
+            color: #05a558;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            margin-top: -50px;
+        }
+
+        .developer-tools-content p {
+            color: #ffffff;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 100px;
+            font-family: 'Modern Clarity', sans-serif;
+        }
+
+        .developer-tools-images {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .image-scroll {
+            display: flex;
+            /* transition: transform 0.5s ease-in-out; Apply transition effect */
+        }
+
+        /* Adjust the width and other styles of the images as needed */
+        .developer-tools-images img {
+            width: 300px; /* Adjust the image width as needed */
+            height: auto;
+            /* Add border, border-radius, or other styles if required */
+        }
+
+        
 
         /* ... (rest of your existing styles) ... */
 
@@ -276,29 +334,51 @@
         </div>
     </div>
 
-    <div class="about-us-container">
-        <section id="about-us">
-            <div class="about-us-content">
-                <h2>About Us</h2>
-                <p>Welcome to our laboratory seat reservation platform! We're committed to streamlining seat reservations for the Gokongwei College of Engineering Building. Our system ensures a convenient and organized approach, enhancing efficiency in laboratory usage for students and staff.</p>
-                <p>We prioritize ease of access, functionality, and a user-friendly experience to improve your reservation process.</p>
-            </div>
-
-            <div class="about-us-images">
-                <img src="images/dei1.jpg" alt="Dei">
-                <img src="images/sean1.jpg" alt="Sean">
-                <img src="images/norms1.jpg" alt="Norms">
-                <img src="images/yuan1.jpg" alt="Yuan">
-            </div>
-
-            <!-- <div class="about-us-images">
-                <img src="images/dei.png" alt="Dei">
-                <img src="images/sean.png" alt="Sean">
-                <img src="images/norms.png" alt="Norms">
-                <img src="images/yuan.png" alt="Yuan">
-            </div> -->
-        </section>
-    </div>
+     <div class="about-us-container">
+            <section id="about-us">
+                <div class="about-us-content">
+                    <h2>About Us</h2>
+                    <p>Welcome to our laboratory seat reservation platform! We're committed to streamlining seat reservations for the Gokongwei College of Engineering Building. Our system ensures a convenient and organized approach, enhancing efficiency in laboratory usage for students and staff.</p>
+                    <p>We prioritize ease of access, functionality, and a user-friendly experience to improve your reservation process.</p>
+                </div>
+    
+                <div class="about-us-images">
+                    <img src="images/dei1.jpg" alt="Dei">
+                    <img src="images/sean1.jpg" alt="Sean">
+                    <img src="images/norms1.jpg" alt="Norms">
+                    <img src="images/yuan1.jpg" alt="Yuan">
+                </div>
+    
+                <!-- <div class="about-us-images">
+                    <img src="images/dei.png" alt="Dei">
+                    <img src="images/sean.png" alt="Sean">
+                    <img src="images/norms.png" alt="Norms">
+                    <img src="images/yuan.png" alt="Yuan">
+                </div> -->
+            </section>
+        </div>
+    
+        <div class="developer-tools-container">
+            <section id="developer-tools">
+                <div class="developer-tools-content">
+                    <h2>Developer Tools</h2>
+                </div>
+                
+                <div class="developer-tools-images">
+                    <div class="image-scroll">
+                        <img src="images/mongodb.png" alt="MongoDB">
+                        <img src="images/mongoose.png" alt="Mongoose">
+                        <img src="images/node.png" alt="Node">
+                        <img src="images/http.png" alt="HTTP">
+                        <img src="images/cors.png" alt="Cors">
+                        <img src="images/bodyparser.png" alt="BodyParser">
+                        <img src="images/crypto.png" alt="Crypto">
+                        <img src="images/express.png" alt="Express">
+                        <!-- Add other tool images or placeholders here -->
+                    </div>
+                </div>
+            </section>
+        </div>
 
     <footer style="text-align: center; padding: 10px; background-color: rgba(0, 0, 0, 0.5); color: #fff; font-size: 12px;">
         &copy; 2016 All Rights Reserved. De La Salle University
@@ -306,6 +386,52 @@
 </body>
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+    function checkCookieAndRedirect() {
+    const imageScroll = document.querySelector('.image-scroll');
+    console.log("Checking cookie...");
+    const images = document.querySelectorAll('.image-scroll img');
+    const userEmailCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userEmail='));
+    const imageWidth = images[0].clientWidth;
+    console.log(userEmailCookie);
+    let scrollAmount = 0;
+    const scrollSpeed = 1; // Adjust scroll speed
+    images.forEach(img => {
+    if (userEmailCookie) {
+        const userEmail = userEmailCookie.split('=')[1];
+        const imgClone = img.cloneNode(true);
+        console.log(userEmail);
+        imageScroll.appendChild(imgClone);
+    });
+    function autoScroll() {
+        const cookieParts = userEmailCookie.split('=');
+        scrollAmount += scrollSpeed; // Adjust the scroll amount as needed
+        console.log(cookieParts);
+        imageScroll.style.transform = `translateX(-${scrollAmount}px)`;
+        if (cookieParts.length === 2) {
+            const expiryTimeString = cookieParts[1].trim().split(';')[0];
+            console.log(expiryTimeString);
+            const expiryDate = new Date(expiryTimeString);
+        if (scrollAmount >= imageWidth * images.length) {
+            console.log(expiryDate);
+            scrollAmount = 0;
+            console.log(new Date());
+            if (expiryDate && expiryDate > new Date()) {
+                // Valid cookie exists, proceed to redirect
+                console.log("Redirecting to home page...");
+                redirectToHomePage(); // Call the function to redirect to the home page
+            }
+        }
+        }
+        requestAnimationFrame(autoScroll);
+    }
+    }
+}
+    autoScroll();
+    
+});
+
 
     function checkCookieAndRedirect() {
     console.log("Checking cookie...");
