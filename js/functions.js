@@ -39,15 +39,26 @@ function viewProfile() {
     window.location.href = "UserProfile.html";
 }
 
-function logout() {
-    localStorage.removeItem('currentLogIn');
-    localStorage.removeItem('currentType');
+async function logout() {
+    try {
+      const response = await fetch('https://ccapdevmco3.adaptable.app/logout', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    // Clear the userEmail cookie by setting its expiration date to a past time
-    document.cookie = 'userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      if (!response.ok) {
+        throw new Error('Logout failed');
+      }
 
-    window.location.href = "index.html";
-}
+      // Clear all entries in the sessions database successfully
+      window.location.href = "Index.html"; // Redirect after clearing sessions
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle error or display a message to the user
+    }
+  }
 
 function studentView() {
     window.location.href = "Redirection/SwitchStudent.html";
