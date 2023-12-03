@@ -15,6 +15,13 @@ Body-Parser
 Mongoose
 MongoDB
 
+To open locally:
+1. Download the folder onto your device.
+2. Copy the directory of the "/js" folder.
+3. Change the directory (cd) of your command prompt to the copied address.
+4. Enter the command "npm start".
+5. Open the index.html file and get started!
+
 IndexOverview:
 The Archers Reservation Hub, a laboratory seat reservation platform designed for the Gokongwei College of Engineering Building at De La Salle University. The platform provides a convenient and organized approach to seat reservations for both students and lab technicians.
 
