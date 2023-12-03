@@ -475,9 +475,10 @@ app.post('/make-reservation', async (req, res) => {
 app.use(routes);
 
 
-// Your login route handler
-app.post("/login", async (req, res) => {
-    const { email, password } = req.body;
+app.post('/login', async (req, res) => {
+    const { email, password, rememberMe } = req.body;
+
+    console.log(rememberMe);
 
     try {
         const user = await Account.findOne({ email });
@@ -494,6 +495,30 @@ app.post("/login", async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
+        await Session.deleteMany({});
+
+        // Calculate expiry date based on the checkbox state
+        const loginDate = new Date();
+        let expiryDate = new Date();
+
+        if (rememberMe) {
+            // If 'Remember Me' is checked, set expiry date to 3 weeks from the login date
+            expiryDate.setDate(expiryDate.getDate() + 21); // 21 days for 3 weeks
+        } else {
+            // If 'Remember Me' is not checked, set expiry date to 1 hour from the login date
+            expiryDate.setHours(expiryDate.getHours() + 1); // 1 hour
+        }
+
+        // Create a new session entry
+        const newSession = new Session({
+            email: user.email,
+            loginDate: loginDate,
+            expiryDate: expiryDate,
+        });
+
+        // Save the session entry to the database
+        await newSession.save();
+
         // If passwords match, login successful, send user data (email and type)
         res.json({ email: user.email, type: user.type });
     } catch (error) {
@@ -501,6 +526,30 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+app.get('/logout', async (req, res) => {
+    try {
+      // Clear all entries from the sessions database
+      await Session.deleteMany({});
+      res.status(200).json({ message: 'Sessions cleared successfully' });
+    } catch (error) {
+      console.error('Error during logout:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  app.get('/check-session', async (req, res) => {
+    try {
+      // Fetch all sessions from the sessions database
+      const sessions = await Session.find({});
+  
+      res.status(200).json(sessions);
+    } catch (error) {
+      console.error('Error checking session:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
 
 
 
