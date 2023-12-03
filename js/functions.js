@@ -239,6 +239,7 @@ async function submitLoginForm() {
         if (rememberMeCheckbox) {
             const expiryDate = new Date();
             expiryDate.setDate(expiryDate.getDate() + 21); // 3 weeks
+            console.log(expiryDate);
             document.cookie = `userEmail=${userData.email};expires=${expiryDate.toUTCString()};path=/`;
             console.log(document.cookie);
         }
