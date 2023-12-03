@@ -387,80 +387,36 @@
 
 <script>
 
-    document.addEventListener('DOMContentLoaded', function() {
-    function checkCookieAndRedirect() {
+    
+
+document.addEventListener('DOMContentLoaded', function() {
     const imageScroll = document.querySelector('.image-scroll');
-    console.log("Checking cookie...");
     const images = document.querySelectorAll('.image-scroll img');
-    const userEmailCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userEmail='));
     const imageWidth = images[0].clientWidth;
-    console.log(userEmailCookie);
     let scrollAmount = 0;
     const scrollSpeed = 1; // Adjust scroll speed
+
     images.forEach(img => {
-    if (userEmailCookie) {
-        const userEmail = userEmailCookie.split('=')[1];
         const imgClone = img.cloneNode(true);
-        console.log(userEmail);
         imageScroll.appendChild(imgClone);
     });
+
     function autoScroll() {
-        const cookieParts = userEmailCookie.split('=');
         scrollAmount += scrollSpeed; // Adjust the scroll amount as needed
-        console.log(cookieParts);
         imageScroll.style.transform = `translateX(-${scrollAmount}px)`;
-        if (cookieParts.length === 2) {
-            const expiryTimeString = cookieParts[1].trim().split(';')[0];
-            console.log(expiryTimeString);
-            const expiryDate = new Date(expiryTimeString);
+
         if (scrollAmount >= imageWidth * images.length) {
-            console.log(expiryDate);
             scrollAmount = 0;
-            console.log(new Date());
-            if (expiryDate && expiryDate > new Date()) {
-                // Valid cookie exists, proceed to redirect
-                console.log("Redirecting to home page...");
-                redirectToHomePage(); // Call the function to redirect to the home page
-            }
-        }
         }
         requestAnimationFrame(autoScroll);
     }
-    }
-}
+
     autoScroll();
-    
 });
 
 
-    function checkCookieAndRedirect() {
-    console.log("Checking cookie...");
-    const userEmailCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userEmail='));
-    console.log(userEmailCookie);
 
-    if (userEmailCookie) {
-        const userEmail = userEmailCookie.split('=')[1];
-        console.log(userEmail);
 
-        const cookieParts = userEmailCookie.split('=');
-        console.log(cookieParts);
-        if (cookieParts.length === 2) {
-            const expiryTimeString = cookieParts[1].trim().split(';')[0];
-            console.log(expiryTimeString);
-            const expiryDate = new Date(expiryTimeString);
-
-            console.log(expiryDate);
-            console.log(new Date());
-
-            if (expiryDate && expiryDate > new Date()) {
-                // Valid cookie exists, proceed to redirect
-                console.log("Redirecting to home page...");
-                redirectToHomePage(); // Call the function to redirect to the home page
-            }
-        }
-    }
-}
-    
     document.addEventListener('DOMContentLoaded', function() {
     const aboutButton = document.querySelector('.about-us-button');
 
@@ -470,15 +426,7 @@
         const aboutSection = document.getElementById('about-us');
         aboutSection.scrollIntoView({ behavior: 'smooth' });
     });
-  // Check if currentLogIn is not null, then redirect
-      checkCookieAndRedirect();
-        console.log("outside");
-       
-    });
-
-  
-
-
+});
 
 function quickLoginStudent(){
     localStorage.setItem('currentEmail', "sean_bartolome@dlsu.edu.ph");
