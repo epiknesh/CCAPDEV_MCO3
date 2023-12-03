@@ -386,10 +386,54 @@
 </body>
 
 <script>
+    
+    async function checkSessionAndRedirect() {
+  try {
+    const response = await fetch('http://localhost:3000/check-session');
+    if (!response.ok) {
+      throw new Error('Failed to check session');
+    }
+
+    const sessions = await response.json();
+
+    // Check if the sessions array is not empty
+    if (sessions.length > 0) {
+      const firstSession = sessions[0];
+      const currentDate = new Date();
+
+      // Check if the current date is before the expiry date
+      if (currentDate < new Date(firstSession.expiryDate)) {
+        // Set the currentLogIn and currentEmail variables in local storage
+        localStorage.setItem('currentEmail', firstSession.email);
+        localStorage.setItem('currentLogIn', firstSession.email);
+    
+
+       // Fetch the account information based on the email
+const accountResponse = await fetch(`http://localhost:3000/accounts/${firstSession.email}`);
+if (!accountResponse.ok) {
+  throw new Error('Failed to fetch account information');
+}
+
+const accountData = await accountResponse.json();
+localStorage.setItem('currentType', accountData.type);
+
+
+        // Redirect to the Home.html page
+        redirectToHomePage();
+      }
+    }
+  } catch (error) {
+    console.error('Error checking session:', error);
+    // Handle error or display a message to the user
+  }
+}
+
+    
 
     
 
 document.addEventListener('DOMContentLoaded', function() {
+    checkSessionAndRedirect();
     const imageScroll = document.querySelector('.image-scroll');
     const images = document.querySelectorAll('.image-scroll img');
     const imageWidth = images[0].clientWidth;
