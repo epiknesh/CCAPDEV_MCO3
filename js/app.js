@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import Account from "./model/Accounts.js";
 import Reservation from "./model/Reservations.js";
+import Session from "./model/Sessions.js";
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
