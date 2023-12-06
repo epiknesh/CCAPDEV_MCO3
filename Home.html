@@ -842,13 +842,15 @@ function searchSlots() {
         .then(reservations => {
             const availableSlots = calculateAvailableSlots(totalSlots, reservations);
             if (availableSlots > 0) {
-                showAvailableSlots(availableSlots, totalSlots);
+                showAvailableSlots(availableSlots, totalSlots, lab);
                 // Handle available slots
             } else {
+                console.log('No available slots found for the given criteria.');
                 // Handle no available slots case
             }
         });
 }
+
 
         function openSlotSearcher() {
             document.getElementById("searchPopup").style.display = "block";
@@ -905,17 +907,25 @@ function searchSlots() {
         }
 
 
-        function showAvailableSlots(availableSlots, totalSlots) {
-            const availabilityPopup = document.getElementById('availabilityPopup');
-            availabilityPopup.innerHTML = `
-                <div class="popup-content">
-                    <span onclick="closeAvailabilityPopup()" class="close">&times;</span>
-                    <p class="label">Available Slots</p>
-                    <p>Slots Remaining: ${availableSlots}/${totalSlots}</p>
-                </div>
-            `;
-            availabilityPopup.style.display = 'block';
-        }
+        function showAvailableSlots(availableSlots, totalSlots, lab) {
+    const availabilityPopup = document.getElementById('availabilityPopup');
+    availabilityPopup.innerHTML = `
+        <div class="popup-content">
+            <span onclick="closeAvailabilityPopup()" class="close">&times;</span>
+            <p class="label">Available Slots</p>
+            <p>Slots Remaining: ${availableSlots}/${totalSlots}</p>
+            <button class="popup-button" onclick="goToLab('${lab}')">Go to Lab ${lab}</button>
+        </div>
+    `;
+    availabilityPopup.style.display = 'block';
+}
+
+function goToLab(lab) {
+    updateSelectedLab(lab);
+    window.location.href = "./Laboratory-Student.html";
+
+}
+
 
         function closeAvailabilityPopup() {
             const availabilityPopup = document.getElementById('availabilityPopup');
