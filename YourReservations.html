@@ -736,7 +736,7 @@ confirmBtn.addEventListener('click', confirmButtonClickHandler);
             const updatedReservationList = await fillReservationList();
             var type = localStorage.getItem('currentType');
 
-    if (type === 'Student') {
+    if (type === 'student') {
         displayReservations(updatedReservationList);
     } else{
         labTechDisplay(updatedReservationList);
